@@ -3,10 +3,17 @@ import { getServerSession } from "next-auth/next";
 import prisma from "../../../../lib/db";
 import { authOptions } from "../../auth/[...nextauth]/route";
 
+// Define context type for route handlers
+type RouteContext = {
+  params: {
+    id: string;
+  };
+};
+
 // GET: Fetch a single project
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: RouteContext
 ) {
   const { id } = params;
 
@@ -45,7 +52,7 @@ export async function GET(
 // PUT: Update a project
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: RouteContext
 ) {
   const session = await getServerSession(authOptions);
   const { id } = params;
@@ -119,7 +126,7 @@ export async function PUT(
 // DELETE: Delete a project
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: RouteContext
 ) {
   const session = await getServerSession(authOptions);
   const { id } = params;
