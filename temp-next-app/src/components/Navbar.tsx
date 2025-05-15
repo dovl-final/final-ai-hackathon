@@ -15,7 +15,14 @@ export default function Navbar() {
           <div className="flex items-center">
             <div className="flex-shrink-0 flex items-center">
               <Link href="/" className="flex items-center group transition-all duration-300">
-                <span className="text-2xl font-extrabold bg-gradient-to-r from-indigo-600 to-violet-500 bg-clip-text text-transparent transition-all duration-300 group-hover:scale-105">Final</span>
+                <Image
+                  src="/final-logo.svg"
+                  alt="Final AI Hackathon"
+                  width={120}
+                  height={40}
+                  className="transition-transform duration-300 group-hover:scale-105"
+                  priority
+                />
                 <div className="h-6 w-px mx-3 bg-gradient-to-b from-indigo-300/40 to-violet-300/40 rounded-full"></div>
                 <span className="text-xl font-semibold text-gray-700 dark:text-gray-200 group-hover:text-indigo-600 transition-colors">AI Hackathon</span>
               </Link>

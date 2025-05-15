@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024" height="512" version="1.1" viewBox="0 0 1024 512" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <text x="50" y="350" font-family="Arial" font-size="400" font-weight="bold">
+   <tspan fill="#4FB3E0">fin</tspan><tspan fill="#3B82F6">al</tspan>
+  </text>
+  <line x1="50" y1="380" x2="950" y2="380" stroke="#718096" stroke-width="10"/>
+  <path d="M 850,330 L 950,380 L 850,430" fill="none" stroke="#3B82F6" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+ </g>
+</svg>
