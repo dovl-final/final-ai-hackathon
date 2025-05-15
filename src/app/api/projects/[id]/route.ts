@@ -6,9 +6,9 @@ import { authOptions } from "../../auth/[...nextauth]/route";
 // GET: Fetch a single project
 export async function GET(
   request: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
-  const { id } = context.params;
+  const { id } = params;
 
   try {
     const project = await prisma.project.findUnique({
@@ -45,10 +45,10 @@ export async function GET(
 // PUT: Update a project
 export async function PUT(
   request: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   const session = await getServerSession(authOptions);
-  const { id } = context.params;
+  const { id } = params;
 
   // Check if user is authenticated
   if (!session) {
@@ -119,10 +119,10 @@ export async function PUT(
 // DELETE: Delete a project
 export async function DELETE(
   request: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   const session = await getServerSession(authOptions);
-  const { id } = context.params;
+  const { id } = params;
 
   // Check if user is authenticated
   if (!session) {
