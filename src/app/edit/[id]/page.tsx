@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
 import { notFound } from "next/navigation";
-import { authOptions } from "../../../lib/auth";
+import { authOptions } from "../../api/auth/[...nextauth]/route";
 import prisma from "../../../lib/db";
 import Navbar from "../../../components/Navbar";
 import ProjectForm from "../../../components/ProjectForm";

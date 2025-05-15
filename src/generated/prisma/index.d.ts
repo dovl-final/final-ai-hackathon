@@ -2354,10 +2354,12 @@ export namespace Prisma {
 
   export type AccountAvgAggregateOutputType = {
     expires_at: number | null
+    ext_expires_in: number | null
   }
 
   export type AccountSumAggregateOutputType = {
     expires_at: number | null
+    ext_expires_in: number | null
   }
 
   export type AccountMinAggregateOutputType = {
@@ -2369,6 +2371,7 @@ export namespace Prisma {
     refresh_token: string | null
     access_token: string | null
     expires_at: number | null
+    ext_expires_in: number | null
     token_type: string | null
     scope: string | null
     id_token: string | null
@@ -2386,6 +2389,7 @@ export namespace Prisma {
     refresh_token: string | null
     access_token: string | null
     expires_at: number | null
+    ext_expires_in: number | null
     token_type: string | null
     scope: string | null
     id_token: string | null
@@ -2403,6 +2407,7 @@ export namespace Prisma {
     refresh_token: number
     access_token: number
     expires_at: number
+    ext_expires_in: number
     token_type: number
     scope: number
     id_token: number
@@ -2415,10 +2420,12 @@ export namespace Prisma {
 
   export type AccountAvgAggregateInputType = {
     expires_at?: true
+    ext_expires_in?: true
   }
 
   export type AccountSumAggregateInputType = {
     expires_at?: true
+    ext_expires_in?: true
   }
 
   export type AccountMinAggregateInputType = {
@@ -2430,6 +2437,7 @@ export namespace Prisma {
     refresh_token?: true
     access_token?: true
     expires_at?: true
+    ext_expires_in?: true
     token_type?: true
     scope?: true
     id_token?: true
@@ -2447,6 +2455,7 @@ export namespace Prisma {
     refresh_token?: true
     access_token?: true
     expires_at?: true
+    ext_expires_in?: true
     token_type?: true
     scope?: true
     id_token?: true
@@ -2464,6 +2473,7 @@ export namespace Prisma {
     refresh_token?: true
     access_token?: true
     expires_at?: true
+    ext_expires_in?: true
     token_type?: true
     scope?: true
     id_token?: true
@@ -2568,6 +2578,7 @@ export namespace Prisma {
     refresh_token: string | null
     access_token: string | null
     expires_at: number | null
+    ext_expires_in: number | null
     token_type: string | null
     scope: string | null
     id_token: string | null
@@ -2604,6 +2615,7 @@ export namespace Prisma {
     refresh_token?: boolean
     access_token?: boolean
     expires_at?: boolean
+    ext_expires_in?: boolean
     token_type?: boolean
     scope?: boolean
     id_token?: boolean
@@ -2622,6 +2634,7 @@ export namespace Prisma {
     refresh_token?: boolean
     access_token?: boolean
     expires_at?: boolean
+    ext_expires_in?: boolean
     token_type?: boolean
     scope?: boolean
     id_token?: boolean
@@ -2640,6 +2653,7 @@ export namespace Prisma {
     refresh_token?: boolean
     access_token?: boolean
     expires_at?: boolean
+    ext_expires_in?: boolean
     token_type?: boolean
     scope?: boolean
     id_token?: boolean
@@ -2658,6 +2672,7 @@ export namespace Prisma {
     refresh_token?: boolean
     access_token?: boolean
     expires_at?: boolean
+    ext_expires_in?: boolean
     token_type?: boolean
     scope?: boolean
     id_token?: boolean
@@ -2666,7 +2681,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type AccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "type" | "provider" | "providerAccountId" | "refresh_token" | "access_token" | "expires_at" | "token_type" | "scope" | "id_token" | "session_state" | "createdAt" | "updatedAt", ExtArgs["result"]["account"]>
+  export type AccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "type" | "provider" | "providerAccountId" | "refresh_token" | "access_token" | "expires_at" | "ext_expires_in" | "token_type" | "scope" | "id_token" | "session_state" | "createdAt" | "updatedAt", ExtArgs["result"]["account"]>
   export type AccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -2691,6 +2706,7 @@ export namespace Prisma {
       refresh_token: string | null
       access_token: string | null
       expires_at: number | null
+      ext_expires_in: number | null
       token_type: string | null
       scope: string | null
       id_token: string | null
@@ -3129,6 +3145,7 @@ export namespace Prisma {
     readonly refresh_token: FieldRef<"Account", 'String'>
     readonly access_token: FieldRef<"Account", 'String'>
     readonly expires_at: FieldRef<"Account", 'Int'>
+    readonly ext_expires_in: FieldRef<"Account", 'Int'>
     readonly token_type: FieldRef<"Account", 'String'>
     readonly scope: FieldRef<"Account", 'String'>
     readonly id_token: FieldRef<"Account", 'String'>
@@ -5756,6 +5773,7 @@ export namespace Prisma {
     refresh_token: 'refresh_token',
     access_token: 'access_token',
     expires_at: 'expires_at',
+    ext_expires_in: 'ext_expires_in',
     token_type: 'token_type',
     scope: 'scope',
     id_token: 'id_token',
@@ -5926,6 +5944,7 @@ export namespace Prisma {
     refresh_token?: StringNullableFilter<"Account"> | string | null
     access_token?: StringNullableFilter<"Account"> | string | null
     expires_at?: IntNullableFilter<"Account"> | number | null
+    ext_expires_in?: IntNullableFilter<"Account"> | number | null
     token_type?: StringNullableFilter<"Account"> | string | null
     scope?: StringNullableFilter<"Account"> | string | null
     id_token?: StringNullableFilter<"Account"> | string | null
@@ -5944,6 +5963,7 @@ export namespace Prisma {
     refresh_token?: SortOrderInput | SortOrder
     access_token?: SortOrderInput | SortOrder
     expires_at?: SortOrderInput | SortOrder
+    ext_expires_in?: SortOrderInput | SortOrder
     token_type?: SortOrderInput | SortOrder
     scope?: SortOrderInput | SortOrder
     id_token?: SortOrderInput | SortOrder
@@ -5966,6 +5986,7 @@ export namespace Prisma {
     refresh_token?: StringNullableFilter<"Account"> | string | null
     access_token?: StringNullableFilter<"Account"> | string | null
     expires_at?: IntNullableFilter<"Account"> | number | null
+    ext_expires_in?: IntNullableFilter<"Account"> | number | null
     token_type?: StringNullableFilter<"Account"> | string | null
     scope?: StringNullableFilter<"Account"> | string | null
     id_token?: StringNullableFilter<"Account"> | string | null
@@ -5984,6 +6005,7 @@ export namespace Prisma {
     refresh_token?: SortOrderInput | SortOrder
     access_token?: SortOrderInput | SortOrder
     expires_at?: SortOrderInput | SortOrder
+    ext_expires_in?: SortOrderInput | SortOrder
     token_type?: SortOrderInput | SortOrder
     scope?: SortOrderInput | SortOrder
     id_token?: SortOrderInput | SortOrder
@@ -6009,6 +6031,7 @@ export namespace Prisma {
     refresh_token?: StringNullableWithAggregatesFilter<"Account"> | string | null
     access_token?: StringNullableWithAggregatesFilter<"Account"> | string | null
     expires_at?: IntNullableWithAggregatesFilter<"Account"> | number | null
+    ext_expires_in?: IntNullableWithAggregatesFilter<"Account"> | number | null
     token_type?: StringNullableWithAggregatesFilter<"Account"> | string | null
     scope?: StringNullableWithAggregatesFilter<"Account"> | string | null
     id_token?: StringNullableWithAggregatesFilter<"Account"> | string | null
@@ -6229,6 +6252,7 @@ export namespace Prisma {
     refresh_token?: string | null
     access_token?: string | null
     expires_at?: number | null
+    ext_expires_in?: number | null
     token_type?: string | null
     scope?: string | null
     id_token?: string | null
@@ -6247,6 +6271,7 @@ export namespace Prisma {
     refresh_token?: string | null
     access_token?: string | null
     expires_at?: number | null
+    ext_expires_in?: number | null
     token_type?: string | null
     scope?: string | null
     id_token?: string | null
@@ -6263,6 +6288,7 @@ export namespace Prisma {
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     access_token?: NullableStringFieldUpdateOperationsInput | string | null
     expires_at?: NullableIntFieldUpdateOperationsInput | number | null
+    ext_expires_in?: NullableIntFieldUpdateOperationsInput | number | null
     token_type?: NullableStringFieldUpdateOperationsInput | string | null
     scope?: NullableStringFieldUpdateOperationsInput | string | null
     id_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6281,6 +6307,7 @@ export namespace Prisma {
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     access_token?: NullableStringFieldUpdateOperationsInput | string | null
     expires_at?: NullableIntFieldUpdateOperationsInput | number | null
+    ext_expires_in?: NullableIntFieldUpdateOperationsInput | number | null
     token_type?: NullableStringFieldUpdateOperationsInput | string | null
     scope?: NullableStringFieldUpdateOperationsInput | string | null
     id_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6298,6 +6325,7 @@ export namespace Prisma {
     refresh_token?: string | null
     access_token?: string | null
     expires_at?: number | null
+    ext_expires_in?: number | null
     token_type?: string | null
     scope?: string | null
     id_token?: string | null
@@ -6314,6 +6342,7 @@ export namespace Prisma {
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     access_token?: NullableStringFieldUpdateOperationsInput | string | null
     expires_at?: NullableIntFieldUpdateOperationsInput | number | null
+    ext_expires_in?: NullableIntFieldUpdateOperationsInput | number | null
     token_type?: NullableStringFieldUpdateOperationsInput | string | null
     scope?: NullableStringFieldUpdateOperationsInput | string | null
     id_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6331,6 +6360,7 @@ export namespace Prisma {
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     access_token?: NullableStringFieldUpdateOperationsInput | string | null
     expires_at?: NullableIntFieldUpdateOperationsInput | number | null
+    ext_expires_in?: NullableIntFieldUpdateOperationsInput | number | null
     token_type?: NullableStringFieldUpdateOperationsInput | string | null
     scope?: NullableStringFieldUpdateOperationsInput | string | null
     id_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6670,6 +6700,7 @@ export namespace Prisma {
     refresh_token?: SortOrder
     access_token?: SortOrder
     expires_at?: SortOrder
+    ext_expires_in?: SortOrder
     token_type?: SortOrder
     scope?: SortOrder
     id_token?: SortOrder
@@ -6680,6 +6711,7 @@ export namespace Prisma {
 
   export type AccountAvgOrderByAggregateInput = {
     expires_at?: SortOrder
+    ext_expires_in?: SortOrder
   }
 
   export type AccountMaxOrderByAggregateInput = {
@@ -6691,6 +6723,7 @@ export namespace Prisma {
     refresh_token?: SortOrder
     access_token?: SortOrder
     expires_at?: SortOrder
+    ext_expires_in?: SortOrder
     token_type?: SortOrder
     scope?: SortOrder
     id_token?: SortOrder
@@ -6708,6 +6741,7 @@ export namespace Prisma {
     refresh_token?: SortOrder
     access_token?: SortOrder
     expires_at?: SortOrder
+    ext_expires_in?: SortOrder
     token_type?: SortOrder
     scope?: SortOrder
     id_token?: SortOrder
@@ -6718,6 +6752,7 @@ export namespace Prisma {
 
   export type AccountSumOrderByAggregateInput = {
     expires_at?: SortOrder
+    ext_expires_in?: SortOrder
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -7252,6 +7287,7 @@ export namespace Prisma {
     refresh_token?: string | null
     access_token?: string | null
     expires_at?: number | null
+    ext_expires_in?: number | null
     token_type?: string | null
     scope?: string | null
     id_token?: string | null
@@ -7268,6 +7304,7 @@ export namespace Prisma {
     refresh_token?: string | null
     access_token?: string | null
     expires_at?: number | null
+    ext_expires_in?: number | null
     token_type?: string | null
     scope?: string | null
     id_token?: string | null
@@ -7364,6 +7401,7 @@ export namespace Prisma {
     refresh_token?: StringNullableFilter<"Account"> | string | null
     access_token?: StringNullableFilter<"Account"> | string | null
     expires_at?: IntNullableFilter<"Account"> | number | null
+    ext_expires_in?: IntNullableFilter<"Account"> | number | null
     token_type?: StringNullableFilter<"Account"> | string | null
     scope?: StringNullableFilter<"Account"> | string | null
     id_token?: StringNullableFilter<"Account"> | string | null
@@ -7608,6 +7646,7 @@ export namespace Prisma {
     refresh_token?: string | null
     access_token?: string | null
     expires_at?: number | null
+    ext_expires_in?: number | null
     token_type?: string | null
     scope?: string | null
     id_token?: string | null
@@ -7660,6 +7699,7 @@ export namespace Prisma {
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     access_token?: NullableStringFieldUpdateOperationsInput | string | null
     expires_at?: NullableIntFieldUpdateOperationsInput | number | null
+    ext_expires_in?: NullableIntFieldUpdateOperationsInput | number | null
     token_type?: NullableStringFieldUpdateOperationsInput | string | null
     scope?: NullableStringFieldUpdateOperationsInput | string | null
     id_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7676,6 +7716,7 @@ export namespace Prisma {
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     access_token?: NullableStringFieldUpdateOperationsInput | string | null
     expires_at?: NullableIntFieldUpdateOperationsInput | number | null
+    ext_expires_in?: NullableIntFieldUpdateOperationsInput | number | null
     token_type?: NullableStringFieldUpdateOperationsInput | string | null
     scope?: NullableStringFieldUpdateOperationsInput | string | null
     id_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7692,6 +7733,7 @@ export namespace Prisma {
     refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     access_token?: NullableStringFieldUpdateOperationsInput | string | null
     expires_at?: NullableIntFieldUpdateOperationsInput | number | null
+    ext_expires_in?: NullableIntFieldUpdateOperationsInput | number | null
     token_type?: NullableStringFieldUpdateOperationsInput | string | null
     scope?: NullableStringFieldUpdateOperationsInput | string | null
     id_token?: NullableStringFieldUpdateOperationsInput | string | null
