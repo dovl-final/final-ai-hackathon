@@ -9,12 +9,5 @@
     "deploymentEnabled": {
       "main": true
     }
-  },
-  "env": {
-    "NEXTAUTH_URL": {
-      "development": "http://localhost:3000",
-      "preview": "https://final-ai-hackathon.vercel.app",
-      "production": "https://final-ai-hackathon.vercel.app"
-    }
   }
 }
