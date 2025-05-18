@@ -37,7 +37,9 @@ export const authOptions: AuthOptions = {
       // Only allow Final company emails
       authorization: {
         params: {
-          prompt: "consent",
+          // Changed from 'consent' to 'login' to prevent constant permission approval requests
+          // 'login' will only prompt for consent on first login, not every time
+          prompt: "login",
           access_type: "offline",
           response_type: "code",
         },
