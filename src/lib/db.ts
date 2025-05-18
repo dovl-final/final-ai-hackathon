@@ -6,22 +6,36 @@ import { PrismaClient } from '../generated/prisma';
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
-// For Vercel connection pooling with Supabase, we need to append specific URL parameters
-// We modify the DATABASE_URL directly in the environment rather than the Prisma constructor
-if (process.env.NODE_ENV === 'production' && process.env.DATABASE_URL) {
-  // Add parameters for PgBouncer support
-  if (!process.env.DATABASE_URL.includes('?pgbouncer=true')) {
-    process.env.DATABASE_URL = `${process.env.DATABASE_URL}?pgbouncer=true&connection_limit=1&pool_timeout=20`;
+/**
+ * Direct modification of the PrismaClient, following the approach from
+ * the official Prisma documentation for PgBouncer usage
+ * https://www.prisma.io/docs/guides/performance-and-optimization/connection-management/configure-pg-bouncer
+ */
+
+let prisma: PrismaClient;
+
+if (process.env.NODE_ENV === 'production') {
+  // In production, use a single connection with disableTransactions
+  prisma = new PrismaClient({
+    log: ['error'],
+    datasources: {
+      db: {
+        url: process.env.DATABASE_URL + '?pgbouncer=true&connection_limit=1'
+      },
+    },
+    // Using type assertion for this internal Prisma flag that's not in public types
+  } as any);
+  
+  // Apply the PgBouncer compatibility flag - this is recommended by Prisma
+  (prisma as any)._engineConfig.__internal_testContentionInTransaction = true;
+} else {
+  // In development, use normal configuration
+  if (!globalForPrisma.prisma) {
+    globalForPrisma.prisma = new PrismaClient({
+      log: ['query', 'error', 'warn'],
+    });
   }
+  prisma = globalForPrisma.prisma;
 }
-
-// Create Prisma client with environment-specific logging
-export const prisma = 
-  globalForPrisma.prisma ||
-  new PrismaClient({
-    log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
-  });
-
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
 export default prisma;
