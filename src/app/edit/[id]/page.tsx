@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: "Edit your AI project idea for Final's hackathon",
 };
 
-export default async function EditProject({ params }: { params: { id: string } }) {
+export default async function EditProject({ params }: any) {
   const session = await getServerSession(authOptions);
   const { id } = params;
 

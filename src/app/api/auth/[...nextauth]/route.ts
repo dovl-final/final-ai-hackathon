@@ -1,11 +1,9 @@
 import NextAuth from "next-auth";
 import AzureADProvider from "next-auth/providers/azure-ad";
-// Using any to avoid the import error, as adapter works correctly at runtime
-// @ts-ignore 
+// Using PrismaAdapter for NextAuth
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "../../../../lib/db";
-import type { AuthOptions, Session, DefaultSession } from "next-auth";
-import { JWT } from "next-auth/jwt";
+import type { AuthOptions, DefaultSession } from "next-auth";
 
 // Extend the session type to include user.id
 declare module "next-auth" {
@@ -19,9 +17,16 @@ declare module "next-auth" {
 export const authOptions: AuthOptions = {
   adapter: {
     ...PrismaAdapter(prisma),
-    createUser: async (data: any) => {
-      const { ext_expires_in, ...userData } = data;
-      return await prisma.user.create({ data: userData });
+    createUser: async (data: { email: string; name?: string; image?: string; [key: string]: any }) => {
+      // Filter out any unnecessary fields before creating the user
+      const { email, name, image } = data;
+      return await prisma.user.create({ 
+        data: { 
+          email, 
+          name: name || null, 
+          image: image || null
+        } 
+      });
     }
   },
   providers: [
@@ -43,7 +48,7 @@ export const authOptions: AuthOptions = {
     strategy: "jwt",
   },
   callbacks: {
-    async signIn({ user, account, profile, email }) {
+    async signIn({ user, account }) {
       // Only allow Final company emails
       if (!user.email?.endsWith("@final.co.il")) {
         return false;

@@ -1,4 +1,4 @@
-import { User } from '@prisma/client';
+import { User } from '../generated/prisma';
 
 export interface ProjectFormData {
   title: string;
@@ -26,9 +26,14 @@ export interface SessionUser {
   image?: string | null;
 }
 
-// Extend next-auth session types
+// Note: Session type is already extended in [...nextauth]/route.ts
+// This is just for reference
+/*
 declare module 'next-auth' {
   interface Session {
-    user: SessionUser;
+    user: {
+      id: string;
+    } & DefaultSession['user'];
   }
 }
+*/

@@ -1,0 +1,7 @@
+# Ignore all files in the src/generated directory (Prisma generated files)
+src/generated/**/*
+
+# Standard ignores
+node_modules
+.next
+out
