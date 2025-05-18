@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth/next";
 import prisma from "../../../../lib/db";
-import { authOptions } from "../../auth/[...nextauth]/route";
 
 // Define context type for route handlers
 type RouteContext = {
@@ -54,19 +52,13 @@ export async function PUT(
   request: NextRequest,
   { params }: RouteContext
 ) {
-  const session = await getServerSession(authOptions);
+  // const session = null; // Authentication removed
   const { id } = params;
 
-  // Check if user is authenticated
-  if (!session) {
-    return NextResponse.json(
-      { error: "You must be signed in to update a project" },
-      { status: 401 }
-    );
-  }
+  // No authentication or ownership check needed.
 
   try {
-    // Check if project exists and user is the creator
+    // Check if project exists
     const existingProject = await prisma.project.findUnique({
       where: { id },
     });
@@ -78,12 +70,7 @@ export async function PUT(
       );
     }
 
-    if (existingProject.creatorId !== session.user.id) {
-      return NextResponse.json(
-        { error: "You can only edit your own projects" },
-        { status: 403 }
-      );
-    }
+    // Ownership check removed.
 
     const { title, description, minTeamSize, maxTeamSize } = await request.json();
 
@@ -128,19 +115,13 @@ export async function DELETE(
   request: NextRequest,
   { params }: RouteContext
 ) {
-  const session = await getServerSession(authOptions);
+  // const session = null; // Authentication removed
   const { id } = params;
 
-  // Check if user is authenticated
-  if (!session) {
-    return NextResponse.json(
-      { error: "You must be signed in to delete a project" },
-      { status: 401 }
-    );
-  }
+  // No authentication or ownership check needed.
 
   try {
-    // Check if project exists and user is the creator
+    // Check if project exists
     const existingProject = await prisma.project.findUnique({
       where: { id },
     });
@@ -152,12 +133,7 @@ export async function DELETE(
       );
     }
 
-    if (existingProject.creatorId !== session.user.id) {
-      return NextResponse.json(
-        { error: "You can only delete your own projects" },
-        { status: 403 }
-      );
-    }
+    // Ownership check removed.
 
     await prisma.project.delete({
       where: { id },

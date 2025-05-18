@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
+
 import { ProjectWithCreator } from '../types';
 
 interface ProjectCardProps {
@@ -11,10 +11,10 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
-  const { data: session } = useSession();
   const [isDeleting, setIsDeleting] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const isOwner = session?.user?.id === project.creatorId;
+  const isOwner = true; // Authentication removed, assume owner for controls
+
   
   const formatDate = (date: Date) => {
     return new Date(date).toLocaleDateString('en-US', {
@@ -72,7 +72,7 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
       
       <div className="p-7 flex flex-col flex-grow">
         <div className="flex justify-between items-start gap-4 mb-4">
-          <h3 className="text-xl font-bold text-gray-800 line-clamp-2">
+          <h3 className="text-xl font-bold text-gray-800 dark:text-slate-100 line-clamp-2">
             {project.title}
           </h3>
           
@@ -109,12 +109,12 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
         </div>
         
         <div className="relative">
-          <p className="text-gray-600 mb-6 line-clamp-3">
+          <p className="text-gray-600 dark:text-slate-300 mb-6 line-clamp-3" data-component-name="ProjectCard">
             {project.description}
           </p>
           
           {project.description.length > 150 && (
-            <div className={`absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white to-transparent ${isHovered ? 'opacity-0' : 'opacity-100'} transition-opacity`}></div>
+            <div className={`absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white dark:from-slate-800 to-transparent pointer-events-none ${isHovered ? 'opacity-0' : 'opacity-100'} transition-opacity duration-200`}></div>
           )}
         </div>
         
@@ -135,15 +135,31 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
           </div>
           
           <div className="flex items-center pt-4 border-t border-gray-100">
-            <div className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">
-              {(project.creator.name || project.creator.email || 'U').charAt(0).toUpperCase()}
-            </div>
-            <div className="text-sm">
-              <p className="font-medium text-gray-800">
-                {project.creator.name || project.creator.email}
-              </p>
-              <p className="text-gray-500 text-xs">Project Creator</p>
-            </div>
+            {project.creator ? (
+              <>
+                <div className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">
+                  {(project.creator.name || project.creator.email || 'U').charAt(0).toUpperCase()}
+                </div>
+                <div className="text-sm">
+                  <p className="font-medium text-gray-800 dark:text-slate-100">
+                    {project.creator.name || project.creator.email}
+                  </p>
+                  <p className="text-gray-500 dark:text-slate-400 text-xs">Project Creator</p>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="bg-gray-300 text-gray-700 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">
+                  {'A'}
+                </div>
+                <div className="text-sm">
+                  <p className="font-medium text-gray-800 dark:text-slate-100">
+                    Anonymous
+                  </p>
+                  <p className="text-gray-500 dark:text-slate-400 text-xs">Community Project</p>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

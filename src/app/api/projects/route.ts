@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth/next";
 import prisma from "../../../lib/db";
-import { authOptions } from "../auth/[...nextauth]/route";
 
 // GET: Fetch all projects
 export async function GET() {
@@ -33,15 +31,9 @@ export async function GET() {
 
 // POST: Create a new project
 export async function POST(request: NextRequest) {
-  const session = await getServerSession(authOptions);
+  // const session = null; // Authentication removed
 
-  // Check if user is authenticated
-  if (!session) {
-    return NextResponse.json(
-      { error: "You must be signed in to create a project" },
-      { status: 401 }
-    );
-  }
+  // No authentication check needed.
 
   try {
     const { title, description, minTeamSize, maxTeamSize } = await request.json();
@@ -68,7 +60,7 @@ export async function POST(request: NextRequest) {
         description,
         minTeamSize,
         maxTeamSize,
-        creatorId: session.user.id,
+        // creatorId is now optional and will be null
       },
     });
 

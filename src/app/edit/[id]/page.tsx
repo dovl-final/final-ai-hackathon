@@ -1,8 +1,6 @@
 import { Metadata } from "next";
-import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
 import { notFound } from "next/navigation";
-import { authOptions } from "../../api/auth/[...nextauth]/route";
 import prisma from "../../../lib/db";
 import Navbar from "../../../components/Navbar";
 import ProjectForm from "../../../components/ProjectForm";
@@ -14,13 +12,10 @@ export const metadata: Metadata = {
 };
 
 export default async function EditProject({ params }: { params: { id: string } }) {
-  const session = await getServerSession(authOptions);
   const { id } = params;
+  // const session = null; // Authentication removed
 
-  // Redirect to login if not authenticated
-  if (!session) {
-    redirect("/");
-  }
+  // No redirect needed as authentication is disabled.
 
   // Fetch project data
   const project = await prisma.project.findUnique({
@@ -32,11 +27,10 @@ export default async function EditProject({ params }: { params: { id: string } }
     notFound();
   }
 
-  // Check if user is the creator
-  if (project.creatorId !== session.user.id) {
-    // Redirect to home if user is not the creator
-    redirect("/");
-  }
+  // Ownership check removed as authentication is disabled.
+  // if (project.creatorId !== session.user.id) {
+  //   redirect("/");
+  // }
 
   // Prepare project data for the form
   const projectData: ProjectFormData = {

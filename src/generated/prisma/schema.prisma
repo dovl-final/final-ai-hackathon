@@ -18,16 +18,18 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String    @unique
-  emailVerified DateTime?
-  image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  projects      Project[] @relation("ProjectCreator")
-  accounts      Account[]
-  sessions      Session[]
+  id             String    @id @default(cuid())
+  name           String?
+  email          String    @unique
+  emailVerified  DateTime?
+  image          String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  projects       Project[] @relation("ProjectCreator")
+  accounts       Account[]
+  hashedPassword String?
+  isAdmin        Boolean   @default(false)
+  sessions       Session[]
 }
 
 model Account {
@@ -68,8 +70,8 @@ model Project {
   maxTeamSize Int
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  creatorId   String
-  creator     User     @relation("ProjectCreator", fields: [creatorId], references: [id])
+  creatorId   String?
+  creator     User?    @relation("ProjectCreator", fields: [creatorId], references: [id])
 
   @@index([creatorId])
 }

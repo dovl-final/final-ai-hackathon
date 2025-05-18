@@ -1,12 +1,13 @@
 'use client';
 
 import React from 'react';
-import { SessionProvider } from "next-auth/react";
+
+// SessionProvider removed as part of disabling authentication
 
 export default function Providers({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <SessionProvider>{children}</SessionProvider>;
+  return <>{children}</>; // Render children directly
 }

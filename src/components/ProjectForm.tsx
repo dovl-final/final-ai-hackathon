@@ -68,19 +68,19 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">
+    <form onSubmit={handleSubmit} className="space-y-6 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md dark:border dark:border-gray-700">
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
         {isEdit ? 'Edit Project' : 'Submit a New Project Idea'}
       </h2>
       
       {error && (
-        <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-6">
-          <p className="text-red-700">{error}</p>
+        <div className="bg-red-50 dark:bg-red-900/30 border-l-4 border-red-500 dark:border-red-700 p-4 mb-6">
+          <p className="text-red-700 dark:text-red-300">{error}</p>
         </div>
       )}
       
       <div>
-        <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-slate-100">
           Project Title
         </label>
         <input
@@ -90,13 +90,13 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
           value={formData.title}
           onChange={handleChange}
           required
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          className="mt-1 block w-full rounded-md border-gray-300 dark:border-slate-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-[rgb(20,15,15,0.8)] dark:text-slate-100 dark:placeholder-slate-400"
           placeholder="Enter a descriptive title for your project"
         />
       </div>
       
       <div>
-        <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-slate-100">
           Project Description
         </label>
         <textarea
@@ -106,14 +106,14 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
           onChange={handleChange}
           required
           rows={6}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          className="mt-1 block w-full rounded-md border-gray-300 dark:border-slate-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-800 dark:text-slate-100 dark:placeholder-slate-400"
           placeholder="Describe your AI project idea, its goals, and potential impact"
         />
       </div>
       
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <div>
-          <label htmlFor="minTeamSize" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="minTeamSize" className="block text-sm font-medium text-gray-700 dark:text-slate-100">
             Minimum Team Size
           </label>
           <select
@@ -122,7 +122,7 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
             value={formData.minTeamSize}
             onChange={handleChange}
             required
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className="mt-1 block w-full rounded-md border-gray-300 dark:border-slate-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-800 dark:text-slate-100"
           >
             {[1, 2, 3, 4, 5].map((num) => (
               <option key={num} value={num}>
@@ -133,7 +133,7 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
         </div>
         
         <div>
-          <label htmlFor="maxTeamSize" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="maxTeamSize" className="block text-sm font-medium text-gray-700 dark:text-slate-100">
             Maximum Team Size
           </label>
           <select
@@ -142,7 +142,7 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
             value={formData.maxTeamSize}
             onChange={handleChange}
             required
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className="mt-1 block w-full rounded-md border-gray-300 dark:border-slate-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-800 dark:text-slate-100"
           >
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
               <option key={num} value={num} disabled={num < formData.minTeamSize}>
@@ -151,7 +151,7 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
             ))}
           </select>
           {formData.maxTeamSize < formData.minTeamSize && (
-            <p className="mt-1 text-sm text-red-600">
+            <p className="mt-1 text-sm text-red-600 dark:text-red-400">
               Maximum team size must be greater than or equal to minimum team size
             </p>
           )}
@@ -162,14 +162,14 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
         <button
           type="button"
           onClick={() => router.back()}
-          className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          className="px-4 py-2 border border-gray-300 dark:border-gray-500 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-slate-100 bg-white dark:bg-gray-600 hover:bg-gray-50 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
           Cancel
         </button>
         <button
           type="submit"
           disabled={isSubmitting || formData.maxTeamSize < formData.minTeamSize}
-          className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+          className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
         >
           {isSubmitting ? 'Submitting...' : isEdit ? 'Update Project' : 'Submit Project'}
         </button>
