@@ -174,7 +174,7 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
                 className="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500"
               />
               <label htmlFor="environment-internal" className="ml-2 block text-sm text-gray-700">
-                Internal (for Final employees only)
+                Internal
               </label>
             </div>
             <div className="flex items-center">
@@ -187,7 +187,7 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
                 className="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500"
               />
               <label htmlFor="environment-external" className="ml-2 block text-sm text-gray-700">
-                External (for external partners/clients)
+                External
               </label>
             </div>
           </div>
