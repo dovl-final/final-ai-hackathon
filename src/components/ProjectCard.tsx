@@ -128,30 +128,30 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
         </div>
         
         <div className="mt-auto pt-4">
-          <div className="flex flex-wrap gap-4 text-sm text-gray-500 mb-4">
-            <div className="flex items-center bg-gray-50 rounded-full px-3 py-1">
-              <svg className="w-4 h-4 mr-1.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="flex flex-wrap gap-4 text-sm text-gray-500 dark:text-slate-300 mb-4">
+            <div className="flex items-center bg-gray-50 dark:bg-slate-700 rounded-full px-3 py-1">
+              <svg className="w-4 h-4 mr-1.5 text-gray-400 dark:text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
               <span className="font-medium">{project.minTeamSize} - {project.maxTeamSize}</span>
             </div>
-            <div className="flex items-center bg-gray-50 rounded-full px-3 py-1">
-              <svg className="w-4 h-4 mr-1.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="flex items-center bg-gray-50 dark:bg-slate-700 rounded-full px-3 py-1">
+              <svg className="w-4 h-4 mr-1.5 text-gray-400 dark:text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
               <span>{formatDate(project.createdAt)}</span>
             </div>
           </div>
           
-          <div className="flex items-center pt-4 border-t border-gray-100">
+          <div className="flex items-center pt-4 border-t border-gray-100 dark:border-gray-700">
             <div className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">
               {(project.creator.name || project.creator.email || 'U').charAt(0).toUpperCase()}
             </div>
             <div className="text-sm">
-              <p className="font-medium text-gray-800">
+              <p className="font-medium text-gray-800 dark:text-gray-100">
                 {project.creator.name || project.creator.email}
               </p>
-              <p className="text-gray-500 text-xs">Project Creator</p>
+              <p className="text-gray-500 dark:text-gray-400 text-xs">Project Creator</p>
             </div>
           </div>
         </div>

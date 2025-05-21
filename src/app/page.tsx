@@ -64,9 +64,12 @@ export default async function Home() {
                 <span className="mr-2">🚀</span>Submit a New Project
               </Link>
             ) : (
-              <div className="text-base text-gray-500 font-medium bg-white/80 backdrop-blur-md px-5 py-3 rounded-xl shadow-sm border border-gray-100">
+              <Link
+                href="/api/auth/signin"
+                className="text-base font-medium px-5 py-3 rounded-xl shadow-sm border transition-colors text-gray-700 bg-gray-100 border-gray-300 hover:bg-gray-200 dark:text-gray-100 dark:bg-gray-700 dark:border-gray-500 dark:hover:bg-gray-600"
+              >
                 Sign in to submit your project idea
-              </div>
+              </Link>
             )}
           </div>
 
