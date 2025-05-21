@@ -16,7 +16,7 @@ export default function Navbar() {
             <div className="flex-shrink-0 flex items-center">
               <Link href="/" className="flex items-center group transition-all duration-300">
                 <Image
-                  src="/final-logo.svg"
+                  src="/final-logo.png"
                   alt="Final AI Hackathon"
                   width={120}
                   height={40}

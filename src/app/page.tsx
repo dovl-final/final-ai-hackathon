@@ -85,7 +85,7 @@ export default async function Home() {
             <div className="flex flex-col items-center md:items-start gap-2">
               <div className="flex items-center gap-3">
                 <Image
-                  src="/final-logo.svg"
+                  src="/final-logo.png"
                   alt="Final AI Hackathon"
                   width={100}
                   height={35}
