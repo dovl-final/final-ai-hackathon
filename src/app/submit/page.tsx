@@ -19,21 +19,21 @@ export default async function SubmitProject() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
 
-      <main className="max-w-3xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+      <main className="flex-1 w-full max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <ProjectForm />
       </main>
 
-      <footer className="bg-white mt-12 py-8 border-t border-gray-200">
+      <footer className="bg-white dark:bg-slate-900 mt-12 py-8 border-t border-gray-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
             <div className="flex items-center">
-              <span className="text-xl font-bold text-blue-600">Final</span>
-              <span className="ml-2 text-gray-500">Do the Math</span>
+              <span className="text-xl font-bold text-blue-600 dark:text-blue-400">Final</span>
+              <span className="ml-2 text-gray-500 dark:text-gray-400">Do the Math</span>
             </div>
-            <p className="text-gray-500 text-sm">
+            <p className="text-gray-500 dark:text-gray-400 text-sm">
               &copy; {new Date().getFullYear()} Final Ltd. All rights reserved.
             </p>
           </div>
