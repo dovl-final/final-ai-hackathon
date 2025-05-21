@@ -41,6 +41,14 @@ export default function Navbar() {
               >
                 Submit Project
               </Link>
+              <a
+                href="https://genai-genesis-guide.lovable.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-link text-gray-600 hover:text-indigo-600 flex items-center px-3 py-2 text-sm font-medium"
+              >
+                Ai Intro Kit
+              </a>
             </div>
           </div>
           
