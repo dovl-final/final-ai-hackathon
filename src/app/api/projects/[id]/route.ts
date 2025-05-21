@@ -79,10 +79,10 @@ export async function PUT(
       );
     }
 
-    const { title, description, minTeamSize, maxTeamSize } = await request.json();
+    const { title, description, minTeamSize, maxTeamSize, environment, additionalRequests } = await request.json();
 
     // Validate required fields
-    if (!title || !description || minTeamSize === undefined || maxTeamSize === undefined) {
+    if (!title || !description || minTeamSize === undefined || maxTeamSize === undefined || !environment) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
@@ -104,6 +104,8 @@ export async function PUT(
         description,
         minTeamSize,
         maxTeamSize,
+        environment,
+        additionalRequests: additionalRequests || null,
       },
     });
 

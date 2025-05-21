@@ -5,6 +5,8 @@ export interface ProjectFormData {
   description: string;
   minTeamSize: number;
   maxTeamSize: number;
+  environment: 'internal' | 'external';
+  additionalRequests?: string;
 }
 
 export interface ProjectWithCreator {
@@ -13,6 +15,8 @@ export interface ProjectWithCreator {
   description: string;
   minTeamSize: number;
   maxTeamSize: number;
+  environment: 'internal' | 'external';
+  additionalRequests: string | null;
   createdAt: Date;
   updatedAt: Date;
   creatorId: string;

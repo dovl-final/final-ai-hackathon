@@ -20,6 +20,8 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
     description: '',
     minTeamSize: 2,
     maxTeamSize: 5,
+    environment: 'internal',
+    additionalRequests: '',
   });
 
   useEffect(() => {
@@ -156,6 +158,55 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
             </p>
           )}
         </div>
+      </div>
+
+      <div className="pt-4">
+        <fieldset>
+          <legend className="text-sm font-medium text-gray-700 mb-2">Environment</legend>
+          <div className="mt-2 space-y-2">
+            <div className="flex items-center">
+              <input
+                id="environment-internal"
+                name="environment"
+                type="radio"
+                checked={formData.environment === 'internal'}
+                onChange={() => setFormData(prev => ({ ...prev, environment: 'internal' }))}
+                className="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500"
+              />
+              <label htmlFor="environment-internal" className="ml-2 block text-sm text-gray-700">
+                Internal (for Final employees only)
+              </label>
+            </div>
+            <div className="flex items-center">
+              <input
+                id="environment-external"
+                name="environment"
+                type="radio"
+                checked={formData.environment === 'external'}
+                onChange={() => setFormData(prev => ({ ...prev, environment: 'external' }))}
+                className="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500"
+              />
+              <label htmlFor="environment-external" className="ml-2 block text-sm text-gray-700">
+                External (for external partners/clients)
+              </label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div>
+        <label htmlFor="additionalRequests" className="block text-sm font-medium text-gray-700">
+          Additional Requests (Optional)
+        </label>
+        <textarea
+          id="additionalRequests"
+          name="additionalRequests"
+          value={formData.additionalRequests || ''}
+          onChange={handleChange}
+          rows={3}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          placeholder="Any special requirements or additional information..."
+        />
       </div>
       
       <div className="flex justify-end space-x-3 pt-4">

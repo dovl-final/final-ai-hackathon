@@ -44,6 +44,8 @@ export default async function EditProject({ params }: any) {
     description: project.description,
     minTeamSize: project.minTeamSize,
     maxTeamSize: project.maxTeamSize,
+    environment: project.environment as 'internal' | 'external',
+    additionalRequests: project.additionalRequests || '',
   };
 
   return (

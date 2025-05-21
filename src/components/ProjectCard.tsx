@@ -72,9 +72,18 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
       
       <div className="p-7 flex flex-col flex-grow">
         <div className="flex justify-between items-start gap-4 mb-4">
-          <h3 className="text-xl font-bold text-gray-800 line-clamp-2">
-            {project.title}
-          </h3>
+          <div>
+            <h3 className="text-xl font-bold text-gray-800 line-clamp-2">
+              {project.title}
+            </h3>
+            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium mt-1 ${
+              project.environment === 'internal' 
+                ? 'bg-blue-100 text-blue-800' 
+                : 'bg-purple-100 text-purple-800'
+            }`}>
+              {project.environment === 'internal' ? 'Internal' : 'External'}
+            </span>
+          </div>
           
           {isOwner && (
             <div className="flex space-x-2 shrink-0">
