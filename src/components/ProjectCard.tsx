@@ -78,8 +78,8 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
             </h3>
             <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium mt-1 ${
               project.environment === 'internal' 
-                ? 'bg-blue-100 text-blue-800' 
-                : 'bg-purple-100 text-purple-800'
+                ? 'bg-blue-100 text-blue-800 dark:bg-blue-600 dark:text-gray-50' 
+                : 'bg-purple-100 text-purple-800 dark:bg-purple-600 dark:text-gray-50'
             }`}>
               {project.environment === 'internal' ? 'Internal' : 'External'}
             </span>
@@ -131,7 +131,7 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
           <div className="flex flex-wrap gap-4 text-sm text-gray-500 dark:text-slate-300 mb-4">
             <div className="flex items-center bg-gray-50 dark:bg-slate-700 rounded-full px-3 py-1">
               <svg className="w-4 h-4 mr-1.5 text-gray-400 dark:text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857L6.5 21.036H3v-3.572L16.732 3.732z" />
               </svg>
               <span className="font-medium">{project.minTeamSize} - {project.maxTeamSize}</span>
             </div>
