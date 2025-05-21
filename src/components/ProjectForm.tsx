@@ -70,45 +70,45 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">
+    <form onSubmit={handleSubmit} className="space-y-6 bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
         {isEdit ? 'Edit Project' : 'Submit a New Project Idea'}
       </h2>
       
-      <div className="bg-blue-50 border-l-4 border-blue-500 p-6 mb-6 rounded-md">
-        <h3 className="text-lg font-semibold text-gray-900 mb-3">AI Hackathon Guidelines</h3>
+      <div className="bg-blue-50 dark:bg-blue-900/50 border-l-4 border-blue-500 dark:border-blue-400 p-6 mb-6 rounded-md">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-blue-100 mb-3">AI Hackathon Guidelines</h3>
         <div className="space-y-4">
           <div>
-            <h4 className="font-medium text-gray-900">1. Company-Relevance</h4>
-            <p className="text-gray-700">• Should be related to Final</p>
+            <h4 className="font-medium text-gray-900 dark:text-blue-100">1. Company-Relevance</h4>
+            <p className="text-gray-700 dark:text-blue-200">• Should be related to Final</p>
           </div>
           <div>
-            <h4 className="font-medium text-gray-900">2. AI Integration</h4>
-            <p className="text-gray-700">• Makes meaningful use of AI</p>
+            <h4 className="font-medium text-gray-900 dark:text-blue-100">2. AI Integration</h4>
+            <p className="text-gray-700 dark:text-blue-200">• Makes meaningful use of AI</p>
           </div>
           <div>
-            <h4 className="font-medium text-gray-900">3. Hackathon-Sized Scope</h4>
-            <p className="text-gray-700">• Can be built to a demo-ready/POC within 2 days</p>
+            <h4 className="font-medium text-gray-900 dark:text-blue-100">3. Hackathon-Sized Scope</h4>
+            <p className="text-gray-700 dark:text-blue-200">• Can be built to a demo-ready/POC within 2 days</p>
           </div>
           <div>
-            <h4 className="font-medium text-gray-900">4. Internal & External Network</h4>
-            <p className="text-gray-700">• Both internal and external networks are available for your projects</p>
+            <h4 className="font-medium text-gray-900 dark:text-blue-100">4. Internal & External Network</h4>
+            <p className="text-gray-700 dark:text-blue-200">• Both internal and external networks are available for your projects</p>
           </div>
           <div>
-            <h4 className="font-medium text-gray-900">5. Team Size</h4>
-            <p className="text-gray-700">• 4-7 participants per team is recommended</p>
+            <h4 className="font-medium text-gray-900 dark:text-blue-100">5. Team Size</h4>
+            <p className="text-gray-700 dark:text-blue-200">• 4-7 participants per team is recommended</p>
           </div>
         </div>
       </div>
       
       {error && (
-        <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-6">
-          <p className="text-red-700">{error}</p>
+        <div className="bg-red-50 dark:bg-red-900/50 border-l-4 border-red-500 dark:border-red-400 p-4 mb-6">
+          <p className="text-red-700 dark:text-red-200">{error}</p>
         </div>
       )}
       
       <div>
-        <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
           Project Title
         </label>
         <input
@@ -118,13 +118,13 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
           value={formData.title}
           onChange={handleChange}
           required
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
           placeholder="Enter a descriptive title for your project"
         />
       </div>
       
       <div>
-        <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
           Project Description
         </label>
         <textarea
@@ -134,14 +134,14 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
           onChange={handleChange}
           required
           rows={6}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
           placeholder="Describe your AI project idea, its goals, and potential impact"
         />
       </div>
       
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <div>
-          <label htmlFor="minTeamSize" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="minTeamSize" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Minimum Team Size
           </label>
           <select
@@ -150,7 +150,7 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
             value={formData.minTeamSize}
             onChange={handleChange}
             required
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
           >
             {[1, 2, 3, 4, 5].map((num) => (
               <option key={num} value={num}>
@@ -161,7 +161,7 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
         </div>
         
         <div>
-          <label htmlFor="maxTeamSize" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="maxTeamSize" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Maximum Team Size
           </label>
           <select
@@ -170,7 +170,7 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
             value={formData.maxTeamSize}
             onChange={handleChange}
             required
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
           >
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
               <option key={num} value={num} disabled={num < formData.minTeamSize}>
@@ -179,7 +179,7 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
             ))}
           </select>
           {formData.maxTeamSize < formData.minTeamSize && (
-            <p className="mt-1 text-sm text-red-600">
+            <p className="mt-1 text-sm text-red-600 dark:text-red-400">
               Maximum team size must be greater than or equal to minimum team size
             </p>
           )}
@@ -188,7 +188,7 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
 
       <div className="pt-4">
         <fieldset>
-          <legend className="text-sm font-medium text-gray-700 mb-2">Environment</legend>
+          <legend className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Environment</legend>
           <div className="mt-2 space-y-2">
             <div className="flex items-center">
               <input
@@ -197,9 +197,9 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
                 type="radio"
                 checked={formData.environment === 'internal'}
                 onChange={() => setFormData(prev => ({ ...prev, environment: 'internal' }))}
-                className="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500"
+                className="h-4 w-4 border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-500"
               />
-              <label htmlFor="environment-internal" className="ml-2 block text-sm text-gray-700">
+              <label htmlFor="environment-internal" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
                 Internal
               </label>
             </div>
@@ -210,9 +210,9 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
                 type="radio"
                 checked={formData.environment === 'external'}
                 onChange={() => setFormData(prev => ({ ...prev, environment: 'external' }))}
-                className="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500"
+                className="h-4 w-4 border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-500"
               />
-              <label htmlFor="environment-external" className="ml-2 block text-sm text-gray-700">
+              <label htmlFor="environment-external" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
                 External
               </label>
             </div>
@@ -221,7 +221,7 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
       </div>
 
       <div>
-        <label htmlFor="additionalRequests" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="additionalRequests" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
           Additional Requests (Optional)
         </label>
         <textarea
@@ -230,7 +230,7 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
           value={formData.additionalRequests || ''}
           onChange={handleChange}
           rows={3}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
           placeholder="Any special requirements or additional information..."
         />
       </div>
@@ -239,14 +239,14 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
         <button
           type="button"
           onClick={() => router.back()}
-          className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
           Cancel
         </button>
         <button
           type="submit"
           disabled={isSubmitting || formData.maxTeamSize < formData.minTeamSize}
-          className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+          className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
         >
           {isSubmitting ? 'Submitting...' : isEdit ? 'Update Project' : 'Submit Project'}
         </button>
