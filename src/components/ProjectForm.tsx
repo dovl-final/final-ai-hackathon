@@ -75,6 +75,32 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
         {isEdit ? 'Edit Project' : 'Submit a New Project Idea'}
       </h2>
       
+      <div className="bg-blue-50 border-l-4 border-blue-500 p-6 mb-6 rounded-md">
+        <h3 className="text-lg font-semibold text-gray-900 mb-3">AI Hackathon Guidelines</h3>
+        <div className="space-y-4">
+          <div>
+            <h4 className="font-medium text-gray-900">1. Company-Relevance</h4>
+            <p className="text-gray-700">• Should be related to Final</p>
+          </div>
+          <div>
+            <h4 className="font-medium text-gray-900">2. AI Integration</h4>
+            <p className="text-gray-700">• Makes meaningful use of AI</p>
+          </div>
+          <div>
+            <h4 className="font-medium text-gray-900">3. Hackathon-Sized Scope</h4>
+            <p className="text-gray-700">• Can be built to a demo-ready/POC within 2 days</p>
+          </div>
+          <div>
+            <h4 className="font-medium text-gray-900">4. Internal & External Network</h4>
+            <p className="text-gray-700">• Both internal and external networks are available for your projects</p>
+          </div>
+          <div>
+            <h4 className="font-medium text-gray-900">5. Team Size</h4>
+            <p className="text-gray-700">• 4-7 participants per team is recommended</p>
+          </div>
+        </div>
+      </div>
+      
       {error && (
         <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-6">
           <p className="text-red-700">{error}</p>
