@@ -10,11 +10,12 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  // For local development with SQLite:
+  // provider = "sqlite"
+  // url      = "file:./dev.db"
   // For production, use PostgreSQL:
-  // provider = "postgresql"
-  // url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -61,15 +62,17 @@ model Session {
 }
 
 model Project {
-  id          String   @id @default(cuid())
-  title       String
-  description String
-  minTeamSize Int
-  maxTeamSize Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  creatorId   String
-  creator     User     @relation("ProjectCreator", fields: [creatorId], references: [id])
+  id                 String   @id @default(cuid())
+  title              String
+  description        String
+  minTeamSize        Int
+  maxTeamSize        Int
+  environment        String   @default("internal") // 'internal' or 'external'
+  additionalRequests String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  creatorId          String
+  creator            User     @relation("ProjectCreator", fields: [creatorId], references: [id])
 
   @@index([creatorId])
 }

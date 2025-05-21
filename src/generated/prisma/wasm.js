@@ -114,6 +114,9 @@ Prisma.NullTypes = {
  */
 
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
+  ReadUncommitted: 'ReadUncommitted',
+  ReadCommitted: 'ReadCommitted',
+  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
@@ -158,6 +161,8 @@ exports.Prisma.ProjectScalarFieldEnum = {
   description: 'description',
   minTeamSize: 'minTeamSize',
   maxTeamSize: 'maxTeamSize',
+  environment: 'environment',
+  additionalRequests: 'additionalRequests',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   creatorId: 'creatorId'
@@ -166,6 +171,11 @@ exports.Prisma.ProjectScalarFieldEnum = {
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
 };
 
 exports.Prisma.NullsOrder = {
