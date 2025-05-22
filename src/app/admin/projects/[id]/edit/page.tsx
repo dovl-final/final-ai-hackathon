@@ -4,13 +4,15 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/db";
 import ProjectForm from "@/components/ProjectForm";
 import { ProjectFormData } from "@/types";
+import { JSX } from 'react';
 
-type AdminEditProjectPageProps = {
+export default async function AdminEditProjectPage({
+  params,
+  searchParams,
+}: {
   params: { id: string };
   searchParams: { [key: string]: string | string[] | undefined };
-};
-
-export default async function AdminEditProjectPage({ params }: AdminEditProjectPageProps) {
+}): Promise<JSX.Element> {
   // Check admin status
   const session = await getServerSession(authOptions);
   if (!session?.user?.isAdmin) {
