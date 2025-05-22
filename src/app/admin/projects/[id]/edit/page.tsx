@@ -6,13 +6,7 @@ import ProjectForm from "@/components/ProjectForm";
 import { ProjectFormData } from "@/types";
 import { JSX } from 'react';
 
-export default async function AdminEditProjectPage({
-  params,
-  searchParams,
-}: {
-  params: { id: string };
-  searchParams: { [key: string]: string | string[] | undefined };
-}): Promise<JSX.Element> {
+export default async function AdminEditProjectPage({ params }: any): Promise<JSX.Element> {
   // Check admin status
   const session = await getServerSession(authOptions);
   if (!session?.user?.isAdmin) {
