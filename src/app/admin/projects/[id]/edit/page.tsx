@@ -5,11 +5,13 @@ import prisma from "@/lib/db";
 import ProjectForm from "@/components/ProjectForm";
 import { ProjectFormData } from "@/types";
 
-export default async function AdminEditProjectPage({
-  params,
-}: {
+interface AdminEditProjectPageProps {
   params: { id: string };
-}) {
+}
+
+export default async function AdminEditProjectPage(
+  { params }: AdminEditProjectPageProps
+) {
   // Check admin status
   const session = await getServerSession(authOptions);
   if (!session?.user?.isAdmin) {
