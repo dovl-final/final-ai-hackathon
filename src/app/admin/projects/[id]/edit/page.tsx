@@ -35,9 +35,9 @@ export default async function AdminEditProjectPage({ params }: any): Promise<JSX
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Edit Project</h1>
+        <h1 className="text-3xl font-bold dark:text-white">Edit Project</h1>
       </div>
-      <div className="bg-white rounded-lg shadow-md p-6">
+      <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6">
         <ProjectForm 
           initialData={initialData} 
           projectId={params.id} 

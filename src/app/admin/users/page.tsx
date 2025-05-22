@@ -29,9 +29,10 @@ export default async function AdminUsersPage() {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">User Management</h1>
+        <h1 className="text-3xl font-bold dark:text-white">User Management</h1>
       </div>
-      <div className="bg-white rounded-lg shadow-md p-6">
+      <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6 mb-6">
+        <h2 className="text-xl font-semibold mb-4 dark:text-gray-100">Users</h2>
         <UserManagement users={users} />
       </div>
     </div>

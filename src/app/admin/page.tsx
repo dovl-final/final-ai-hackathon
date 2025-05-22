@@ -25,11 +25,11 @@ export default async function AdminDashboardPage() {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+        <h1 className="text-3xl font-bold dark:text-white">Admin Dashboard</h1>
       </div>
       
-      <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-        <h2 className="text-xl font-semibold mb-4">Projects</h2>
+      <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6 mb-6">
+        <h2 className="text-xl font-semibold mb-4 dark:text-gray-100">Projects</h2>
         <ProjectTable projects={projects} />
       </div>
     </div>
