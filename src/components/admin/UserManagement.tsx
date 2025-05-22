@@ -61,16 +61,16 @@ export default function UserManagement({ users: initialUsers }: UserManagementPr
 
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
+      <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+        <thead className="bg-gray-50 dark:bg-gray-800">
           <tr>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
               Name
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
               Email
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
               Projects
             </th>
             <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -81,7 +81,7 @@ export default function UserManagement({ users: initialUsers }: UserManagementPr
             </th>
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
+        <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
           {users.length === 0 ? (
             <tr>
               <td colSpan={5} className="px-6 py-4 text-center text-sm text-gray-500">
@@ -90,25 +90,25 @@ export default function UserManagement({ users: initialUsers }: UserManagementPr
             </tr>
           ) : (
             users.map((user) => (
-              <tr key={user.id} className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-gray-900">
+              <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                <td className="px-6 py-4 whitespace-nowrap dark:text-gray-100">
+                  <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
                     {user.name || 'Unnamed'}
                   </div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                   {user.email}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                   {user._count.projects}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
                   {user.isAdmin ? (
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
                       Admin
                     </span>
                   ) : (
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
                       Regular User
                     </span>
                   )}
@@ -118,7 +118,7 @@ export default function UserManagement({ users: initialUsers }: UserManagementPr
                     <button
                       onClick={() => toggleAdmin(user.id, false)}
                       disabled={isLoading[user.id]}
-                      className="text-red-600 hover:text-red-900 bg-white border border-gray-300 hover:bg-gray-50 px-3 py-1 rounded-md text-sm font-medium"
+                      className="text-red-600 hover:text-red-900 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 px-3 py-1 rounded-md text-sm font-medium"
                     >
                       {isLoading[user.id] ? 'Updating...' : 'Remove Admin'}
                     </button>
@@ -126,7 +126,7 @@ export default function UserManagement({ users: initialUsers }: UserManagementPr
                     <button
                       onClick={() => toggleAdmin(user.id, true)}
                       disabled={isLoading[user.id]}
-                      className="text-indigo-600 hover:text-indigo-900 bg-white border border-gray-300 hover:bg-gray-50 px-3 py-1 rounded-md text-sm font-medium"
+                      className="text-indigo-600 hover:text-indigo-900 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 px-3 py-1 rounded-md text-sm font-medium"
                     >
                       {isLoading[user.id] ? 'Updating...' : 'Make Admin'}
                     </button>
