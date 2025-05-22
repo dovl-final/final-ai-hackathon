@@ -1,12 +1,12 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/db";
 
 // DELETE endpoint for admins to delete any project
 export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  { params }: any
 ) {
   const session = await getServerSession(authOptions);
   
@@ -45,8 +45,8 @@ export async function DELETE(
 
 // PUT endpoint for admins to update any project
 export async function PUT(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  { params }: any
 ) {
   const session = await getServerSession(authOptions);
   
