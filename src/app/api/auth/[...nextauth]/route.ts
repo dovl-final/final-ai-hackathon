@@ -7,9 +7,15 @@ import type { AuthOptions, DefaultSession } from "next-auth";
 
 // Extend the session type to include user.id
 declare module "next-auth" {
+  interface User {
+    id: string;
+    isAdmin?: boolean;
+  }
+
   interface Session {
     user: {
       id: string;
+      isAdmin?: boolean;
     } & DefaultSession["user"];
   }
 }
@@ -50,6 +56,20 @@ export const authOptions: AuthOptions = {
     strategy: "jwt",
   },
   callbacks: {
+    async session({ session, token, user }) {
+      if (session.user) {
+        session.user.id = token.sub || user.id; // Get id from token.sub if available, otherwise from user.id
+        session.user.isAdmin = token.isAdmin as boolean; // Add isAdmin from token
+      }
+      return session;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.sub = user.id; // Persist user.id to token.sub
+        token.isAdmin = user.isAdmin; // Persist user.isAdmin to token
+      }
+      return token;
+    },
     async signIn({ user, account }) {
       // Only allow Final company emails
       if (!user.email?.endsWith("@final.co.il")) {
@@ -81,19 +101,6 @@ export const authOptions: AuthOptions = {
       }
 
       return true;
-    },
-
-    async session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.sub as string;
-      }
-      return session;
-    },
-    async jwt({ token, user }) {
-      if (user) {
-        token.uid = user.id;
-      }
-      return token;
     },
   },
 };
