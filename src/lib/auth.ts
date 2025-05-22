@@ -63,28 +63,16 @@ export const authOptions: AuthOptions = {
       return token;
     },
     async signIn({ user, account }) {
-      // Ensure user exists in database
+      // The Prisma adapter will handle user creation and account linking.
+      // This callback can be used for custom logic to allow/deny sign-in
+      // based on email domain, account properties, etc., if needed.
       if (user?.email) {
-        const dbUser = await prisma.user.findUnique({
-          where: { email: user.email },
-        });
-
-        if (!dbUser) {
-          // Create new user if they don't exist
-          await prisma.user.create({
-            data: {
-              email: user.email,
-              name: user.name,
-              image: user.image,
-              isAdmin: false, // Default to non-admin
-            },
-          });
-        }
-
+        // For now, simply allow sign-in if an email is present.
+        // The adapter will create the user if they don't exist or link the account.
         return true;
       }
 
-      // Deny sign in if no email
+      // Deny sign in if no email or other conditions aren't met
       return false;
     },
   },
