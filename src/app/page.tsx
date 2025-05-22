@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import Navbar from "../components/Navbar";
 import ProjectList from "../components/ProjectList";
 import HeroBlob from "./HeroBlob";

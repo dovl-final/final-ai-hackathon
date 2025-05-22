@@ -24,6 +24,7 @@ model User {
   email         String    @unique
   emailVerified DateTime?
   image         String?
+  isAdmin       Boolean   @default(false) // Added for admin role
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   projects      Project[] @relation("ProjectCreator")

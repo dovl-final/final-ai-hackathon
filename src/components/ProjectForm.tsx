@@ -8,9 +8,10 @@ interface ProjectFormProps {
   initialData?: ProjectFormData;
   projectId?: string;
   isEdit?: boolean;
+  adminMode?: boolean; // Add this prop for admin editing capabilities
 }
 
-export default function ProjectForm({ initialData, projectId, isEdit = false }: ProjectFormProps) {
+export default function ProjectForm({ initialData, projectId, isEdit = false, adminMode = false }: ProjectFormProps) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -44,7 +45,12 @@ export default function ProjectForm({ initialData, projectId, isEdit = false }: 
     setError('');
 
     try {
-      const url = isEdit ? `/api/projects/${projectId}` : '/api/projects';
+      // Use admin API endpoint if in admin mode
+      const url = isEdit
+        ? adminMode
+          ? `/api/admin/projects/${projectId}`
+          : `/api/projects/${projectId}`
+        : '/api/projects';
       const method = isEdit ? 'PUT' : 'POST';
       
       const response = await fetch(url, {
