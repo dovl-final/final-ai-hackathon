@@ -44,7 +44,8 @@ export const authOptions: AuthOptions = {
         params: {
           scope: "openid profile email User.Read"
         }
-      }
+      },
+      allowDangerousEmailAccountLinking: true,
     }),
   ],
   callbacks: {
