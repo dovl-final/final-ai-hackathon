@@ -121,14 +121,11 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
           )}
         </div>
         
-        <div className="relative">
-          <p className="text-gray-600 mb-6 line-clamp-3">
+        <div className="relative mb-6">
+          <p className="text-gray-600 line-clamp-3">
             {project.description}
           </p>
           
-          {project.description.length > 150 && (
-            <div className={`absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white to-transparent ${isHovered ? 'opacity-0' : 'opacity-100'} transition-opacity`}></div>
-          )}
         </div>
         
         <div className="mt-auto pt-4">
