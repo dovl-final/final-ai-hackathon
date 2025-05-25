@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { ProjectWithCreator } from '../types';
+import ProjectModal from './ProjectModal';
 
 interface ProjectCardProps {
   project: ProjectWithCreator;
@@ -14,6 +15,7 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
   const { data: session } = useSession();
   const [isDeleting, setIsDeleting] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const isOwner = session?.user?.id === project.creatorId;
   
   const formatDate = (date: Date) => {
@@ -62,11 +64,13 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
   const gradientClasses = gradientVariants[gradientIndex];
 
   return (
-    <div 
-      className="card overflow-hidden flex flex-col h-full transition-all duration-300"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <>
+      <div 
+        className="card overflow-hidden flex flex-col h-full transition-all duration-300 cursor-pointer"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onClick={() => setIsModalOpen(true)}
+      >
       {/* Card header with decorative gradient accent */}
       <div className={`h-2 bg-gradient-to-r ${gradientClasses} w-full`}></div>
       
@@ -155,7 +159,13 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
             </div>
           </div>
         </div>
+        </div>
       </div>
-    </div>
+      <ProjectModal
+        project={project}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
+    </>
   );
 }
