@@ -32,32 +32,6 @@ interface ProjectCardProps {
   onDelete?: (id: string) => void;
 }
 
-interface ProjectCreator {
-  id: string;
-  name: string | null;
-  email: string;
-  role?: string;
-}
-
-interface Project {
-  id: string;
-  title: string;
-  description: string;
-  environment: 'internal' | 'external';
-  minTeamSize: number;
-  maxTeamSize: number;
-  createdAt: Date;
-  creatorId: string;
-}
-
-interface ProjectWithCreator extends Project {
-  creator: ProjectCreator;
-}
-
-interface ProjectCardProps {
-  project: ProjectWithCreator;
-  onDelete?: (id: string) => void;
-}
 
 export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
   const { data: session } = useSession();
