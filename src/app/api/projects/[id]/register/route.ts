@@ -1,11 +1,11 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server'; // NextRequest removed, using standard Request
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import prisma from '@/lib/db'; // Updated to use default export from db.ts
 
 export async function POST(
-  request: NextRequest,
-  { params }: { params: { id: string } } // Reverted to inline type for Next.js compatibility
+  request: Request,
+  { params: paramsPromise }: { params: Promise<{ id: string }> } // User suggested typing
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -18,8 +18,8 @@ export async function POST(
       );
     }
     
+    const { id: projectId } = await paramsPromise; // Correctly await and destructure projectId
     const userId = session.user.id;
-    const projectId = params.id;
     
     // Check if project exists
     const project = await prisma.project.findUnique({
@@ -69,8 +69,8 @@ export async function POST(
 }
 
 export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { id: string } } // Reverted to inline type for Next.js compatibility
+  request: Request,
+  { params: paramsPromise }: { params: Promise<{ id: string }> } // User suggested typing
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -83,8 +83,8 @@ export async function DELETE(
       );
     }
     
+    const { id: projectId } = await paramsPromise; // Correctly await and destructure projectId
     const userId = session.user.id;
-    const projectId = params.id;
     
     // Delete registration
     await prisma.projectRegistration.delete({

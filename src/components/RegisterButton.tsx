@@ -89,7 +89,7 @@ export default function RegisterButton({
   return (
     <button
       onClick={handleRegistration}
-      disabled={isLoading || status === 'loading'}
+      disabled={isLoading}
       className={`flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 w-full sm:w-auto min-w-[120px] sm:min-w-[140px] h-9 sm:h-10 whitespace-nowrap ${
         isRegistered
           ? 'bg-red-100 text-red-700 hover:bg-red-200 focus:ring-red-500'
