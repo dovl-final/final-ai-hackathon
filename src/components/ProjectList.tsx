@@ -16,7 +16,20 @@ export default function ProjectList() {
         if (!response.ok) {
           throw new Error('Failed to fetch projects');
         }
-        const data = await response.json();
+        let data: ProjectWithCreator[] = await response.json();
+        // Sort projects: joined projects first
+        data.sort((a, b) => {
+          // a.isUserRegistered might be undefined if not explicitly set, treat as false
+          const aIsJoined = a.isUserRegistered || false;
+          const bIsJoined = b.isUserRegistered || false;
+          if (aIsJoined && !bIsJoined) {
+            return -1; // a comes first
+          }
+          if (!aIsJoined && bIsJoined) {
+            return 1; // b comes first
+          }
+          return 0; // no change in order relative to each other
+        });
         setProjects(data);
       } catch (err) {
         console.error('Error fetching projects:', err);

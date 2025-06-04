@@ -95,6 +95,17 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
               {project.environment === 'internal' ? 'Internal' : 'External'}
             </span>
           </div>
+
+          {/* RegisterButton for non-owners - Top Right */}
+          {session?.user && !isOwner && (
+            <div className="shrink-0">
+              <RegisterButton
+                projectId={project.id}
+                initialIsRegistered={project.isUserRegistered || false}
+                initialRegistrationCount={project.registrationCount || 0}
+              />
+            </div>
+          )}
           
           {isOwner && (
             <div className="flex space-x-2 shrink-0">
@@ -149,16 +160,6 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
               </svg>
               <span>{formatDate(project.createdAt)}</span>
             </div>
-            {/* Registration Button - Inline with date/participants */}
-            {session?.user && !isOwner && (
-              <div className="ml-auto"> {/* ml-auto to push it to the right if space allows, or adjust as needed */}
-                <RegisterButton
-                  projectId={project.id}
-                  initialIsRegistered={project.isUserRegistered || false}
-                  initialRegistrationCount={project.registrationCount || 0}
-                />
-              </div>
-            )}
           </div>
 
           <div className="flex items-center pt-4 border-t border-gray-100 dark:border-gray-700">
