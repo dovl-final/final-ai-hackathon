@@ -1,11 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
-import { prisma } from '@/lib/prisma';
+import prisma from '@/lib/db'; // Updated to use default export from db.ts
+
+interface RouteContext {
+  params: {
+    id: string;
+  };
+}
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: RouteContext // Correctly typed params
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -70,7 +76,7 @@ export async function POST(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: RouteContext // Correctly typed params
 ) {
   try {
     const session = await getServerSession(authOptions);
