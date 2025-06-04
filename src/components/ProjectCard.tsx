@@ -82,16 +82,6 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
       <div className={`h-2 bg-gradient-to-r ${gradientClasses} w-full`}></div>
       
       <div className="p-7 flex flex-col flex-grow relative">
-        {/* Registration Button - Top Right */}
-        {session?.user && !isOwner && (
-          <div className="absolute top-7 right-7 z-10">
-            <RegisterButton
-              projectId={project.id}
-              initialIsRegistered={project.isUserRegistered || false}
-              initialRegistrationCount={project.registrationCount || 0}
-            />
-          </div>
-        )}
         <div className="flex justify-between items-start gap-4 mb-4">
           <div>
             <h3 className="text-xl font-bold text-gray-800 line-clamp-2">
@@ -146,7 +136,7 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
         </div>
         
         <div className="mt-auto pt-4">
-          <div className="flex flex-wrap gap-4 text-sm text-gray-500 dark:text-slate-300 mb-4">
+          <div className="flex justify-between items-center text-sm text-gray-500 dark:text-slate-300 mb-4">
             <div className="flex items-center bg-gray-50 dark:bg-slate-700 rounded-full px-3 py-1">
               <svg className="w-4 h-4 mr-1.5 text-gray-400 dark:text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857L6.5 21.036H3v-3.572L16.732 3.732z" />
@@ -159,9 +149,17 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
               </svg>
               <span>{formatDate(project.createdAt)}</span>
             </div>
+            {/* Registration Button - Inline with date/participants */}
+            {session?.user && !isOwner && (
+              <div className="ml-auto"> {/* ml-auto to push it to the right if space allows, or adjust as needed */}
+                <RegisterButton
+                  projectId={project.id}
+                  initialIsRegistered={project.isUserRegistered || false}
+                  initialRegistrationCount={project.registrationCount || 0}
+                />
+              </div>
+            )}
           </div>
-          
-          {/* RegisterButton moved to top right */}
 
           <div className="flex items-center pt-4 border-t border-gray-100 dark:border-gray-700">
             <div className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">
