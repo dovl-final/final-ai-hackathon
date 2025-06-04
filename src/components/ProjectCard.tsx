@@ -81,7 +81,17 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
       {/* Card header with decorative gradient accent */}
       <div className={`h-2 bg-gradient-to-r ${gradientClasses} w-full`}></div>
       
-      <div className="p-7 flex flex-col flex-grow">
+      <div className="p-7 flex flex-col flex-grow relative">
+        {/* Registration Button - Top Right */}
+        {session?.user && !isOwner && (
+          <div className="absolute top-7 right-7 z-10">
+            <RegisterButton
+              projectId={project.id}
+              initialIsRegistered={project.isUserRegistered || false}
+              initialRegistrationCount={project.registrationCount || 0}
+            />
+          </div>
+        )}
         <div className="flex justify-between items-start gap-4 mb-4">
           <div>
             <h3 className="text-xl font-bold text-gray-800 line-clamp-2">
@@ -151,20 +161,7 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
             </div>
           </div>
           
-          {/* Registration Button using new component */}
-          {session?.user && !isOwner && (
-            <div className="mt-4 mb-4 flex justify-center">
-              <RegisterButton
-                projectId={project.id}
-                initialIsRegistered={project.isUserRegistered || false} // Passed from API
-                initialRegistrationCount={project.registrationCount || 0} // Passed from API
-                // onRegistrationUpdate={(updatedProjectId, newIsRegistered, newRegCount) => {
-                //   // This callback can be used to update a parent list's state if needed
-                //   // For now, RegisterButton updates its own UI and the list will refresh on next load
-                // }}
-              />
-            </div>
-          )}
+          {/* RegisterButton moved to top right */}
 
           <div className="flex items-center pt-4 border-t border-gray-100 dark:border-gray-700">
             <div className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">
