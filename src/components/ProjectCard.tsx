@@ -74,7 +74,7 @@ export default function ProjectCard({ project, onDelete, onRegistrationChange }:
   return (
     <>
       <div 
-        className="card overflow-hidden flex flex-col h-full transition-all duration-300 cursor-pointer"
+        className="card overflow-hidden flex flex-col h-[500px] sm:h-[480px] md:h-[460px] transition-all duration-300 cursor-pointer"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={() => setIsModalOpen(true)}
@@ -129,11 +129,11 @@ export default function ProjectCard({ project, onDelete, onRegistrationChange }:
           )}
         </div>
         
-        <div className="relative mb-6">
-          <p className="text-gray-600 dark:text-slate-300 line-clamp-5">
+        <div className="relative mb-6 h-[140px] sm:h-[120px] md:h-[110px] overflow-hidden">
+          <p className="text-gray-600 dark:text-slate-300 line-clamp-5 sm:line-clamp-4">
             {project.description}
           </p>
-          
+          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white dark:from-gray-800 to-transparent"></div>
         </div>
         
         <div className="mt-auto pt-4">
