@@ -5,6 +5,8 @@ import { authOptions } from "@/lib/auth";
 
 // GET: Fetch all projects
 export async function GET() {
+  const session = await getServerSession(authOptions);
+  const userId = session?.user?.id;
   try {
     const projects = await prisma.project.findMany({
       include: {
@@ -16,6 +18,14 @@ export async function GET() {
             image: true,
           },
         },
+        registrations: userId ? {
+          where: {
+            userId: userId,
+          },
+          select: {
+            userId: true, // We only need to know if a record exists for this user
+          }
+        } : undefined, // If no user, don't include their registrations
       },
       orderBy: {
         createdAt: "desc",
@@ -30,6 +40,7 @@ export async function GET() {
     );
   }
 }
+
 
 // POST: Create a new project
 export async function POST(request: NextRequest) {

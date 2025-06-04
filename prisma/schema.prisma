@@ -20,6 +20,7 @@ model User {
   accounts      Account[]
   projects      Project[] @relation("ProjectCreator")
   sessions      Session[]
+  projectRegistrations ProjectRegistration[]
 }
 
 model Account {
@@ -63,6 +64,24 @@ model Project {
   updatedAt          DateTime @updatedAt
   creatorId          String
   creator            User     @relation("ProjectCreator", fields: [creatorId], references: [id])
+  registrations      ProjectRegistration[]
 
   @@index([creatorId])
+}
+
+model ProjectRegistration {
+  id          String   @id @default(cuid())
+
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, projectId], name: "UserProjectPreferenceUnique")
+  @@index([userId])
+  @@index([projectId])
 }

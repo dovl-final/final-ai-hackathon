@@ -1,14 +1,18 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { ProjectWithCreator } from '../types';
 import ProjectModal from './ProjectModal';
+import ThumbUpIcon from './ThumbUpIcon'; // Adjusted path due to directory creation issue
+import { ProjectRegistration } from '../generated/prisma'; // Import if needed for typing explicitly
 
 interface ProjectCardProps {
-  project: ProjectWithCreator;
+  project: ProjectWithCreator & { registrations?: Pick<ProjectRegistration, 'userId'>[] }; // Allow passing registrations
   onDelete?: (id: string) => void;
+  // Add a prop to know if the current user has joined, if fetched by parent
+  // initialJoined?: boolean; 
 }
 
 export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
@@ -17,6 +21,51 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isOwner = session?.user?.id === project.creatorId;
+  const [isJoined, setIsJoined] = useState(false); // Optimistic UI state
+  const [isJoining, setIsJoining] = useState(false); // Loading state for join action
+
+  // Determine initial joined state
+  useEffect(() => {
+    if (session?.user?.id && project.registrations) {
+      setIsJoined(project.registrations.some(reg => reg.userId === session.user.id));
+    } else if (session?.user?.id && !project.registrations) {
+        // If registrations are not passed, we could fetch them here, 
+        // but for now, we assume not joined if not provided.
+        // To implement fetching: fetch(`/api/projects/${project.id}/join-status`).then(res => res.json()).then(data => setIsJoined(data.isJoined));
+        setIsJoined(false); 
+    }
+  }, [session?.user?.id, project.id, project.registrations]);
+
+  const handleJoinToggle = async (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent modal from opening
+    if (!session?.user?.id || isJoining) return;
+
+    setIsJoining(true);
+    const originalJoinedState = isJoined;
+    setIsJoined(!isJoined); // Optimistic update
+
+    try {
+      const response = await fetch(`/api/projects/${project.id}/join`, {
+        method: originalJoinedState ? 'DELETE' : 'POST', // Corrected logic: if it was joined, now delete; if not, now post.
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Failed to update join status:', errorData.error);
+        alert(`Error: ${errorData.error || 'Could not update join status.'}`);
+        setIsJoined(originalJoinedState); // Revert optimistic update
+      } else {
+        // Successfully toggled
+        // Optional: refetch project data or update a global state if needed
+      }
+    } catch (error) {
+      console.error('Error toggling project join status:', error);
+      alert('An unexpected error occurred. Please try again.');
+      setIsJoined(originalJoinedState); // Revert optimistic update
+    } finally {
+      setIsJoining(false);
+    }
+  };
   
   const formatDate = (date: Date) => {
     return new Date(date).toLocaleDateString('en-US', {
@@ -88,18 +137,17 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
               {project.environment === 'internal' ? 'Internal' : 'External'}
             </span>
           </div>
-          {/* Registration Indicator - Thumb Icon and Preference */}
-          {session && project.isRegistered && typeof project.userPreference === 'number' && (
-            <div className="relative shrink-0 ml-2" title={`Registered as ${project.userPreference === 1 ? '1st' : project.userPreference === 2 ? '2nd' : '3rd'} choice`}>
-              <div className="flex items-center justify-center rounded-full w-10 h-10 bg-green-100 text-green-600">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.865 2.4z" />
-                </svg>
-              </div>
-              <span className="absolute -top-1 -right-1 bg-green-600 text-white text-xs font-semibold rounded-full w-5 h-5 flex items-center justify-center border-2 border-white">
-                {project.userPreference}
-              </span>
-            </div>
+
+          {/* Join/Unjoin Button - Thumb Icon */}
+          {session?.user && !isOwner && (
+            <button 
+              onClick={handleJoinToggle}
+              disabled={isJoining}
+              className={`p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors disabled:opacity-50 ${isJoining ? 'cursor-wait' : ''}`}
+              title={isJoined ? "Unlike project" : "Like project"}
+            >
+              <ThumbUpIcon filled={isJoined} className={`w-5 h-5 ${isJoined ? 'text-royal dark:text-cyan' : 'text-gray-500 dark:text-gray-400'}`} />
+            </button>
           )}
           
           {isOwner && (

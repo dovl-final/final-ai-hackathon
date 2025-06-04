@@ -9,17 +9,18 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String    @unique
-  emailVerified DateTime?
-  image         String?
-  isAdmin       Boolean   @default(false)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  accounts      Account[]
-  projects      Project[] @relation("ProjectCreator")
-  sessions      Session[]
+  id                   String                @id @default(cuid())
+  name                 String?
+  email                String                @unique
+  emailVerified        DateTime?
+  image                String?
+  isAdmin              Boolean               @default(false)
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  accounts             Account[]
+  projects             Project[]             @relation("ProjectCreator")
+  sessions             Session[]
+  projectRegistrations ProjectRegistration[]
 }
 
 model Account {
@@ -52,17 +53,35 @@ model Session {
 }
 
 model Project {
-  id                 String   @id @default(cuid())
+  id                 String                @id @default(cuid())
   title              String
   description        String
   minTeamSize        Int
   maxTeamSize        Int
-  environment        String   @default("internal")
+  environment        String                @default("internal")
   additionalRequests String?
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  createdAt          DateTime              @default(now())
+  updatedAt          DateTime              @updatedAt
   creatorId          String
-  creator            User     @relation("ProjectCreator", fields: [creatorId], references: [id])
+  creator            User                  @relation("ProjectCreator", fields: [creatorId], references: [id])
+  registrations      ProjectRegistration[]
 
   @@index([creatorId])
+}
+
+model ProjectRegistration {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, projectId], name: "UserProjectPreferenceUnique")
+  @@index([userId])
+  @@index([projectId])
 }
