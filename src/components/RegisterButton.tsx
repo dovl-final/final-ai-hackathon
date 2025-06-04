@@ -115,11 +115,6 @@ export default function RegisterButton({
       <span className="truncate">
         {isLoading ? '' : isRegistered ? 'Leave' : 'Join'}
       </span>
-      <span className="text-xs px-1.5 py-0.5 rounded-full ${
-        isRegistered ? 'bg-red-200 text-red-800' : 'bg-indigo-500 text-indigo-100'
-      }">
-        {registrationCount}
-      </span>
     </button>
   );
 }
