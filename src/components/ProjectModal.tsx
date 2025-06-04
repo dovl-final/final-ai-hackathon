@@ -1,15 +1,20 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { useSession } from 'next-auth/react';
 import { ProjectWithCreator } from '../types';
+import RegisterButton from './RegisterButton';
 
 interface ProjectModalProps {
   project: ProjectWithCreator;
   isOpen: boolean;
   onClose: () => void;
+  onRegistrationUpdate?: (projectId: string, newIsRegistered: boolean, newRegistrationCount: number) => void;
 }
 
-export default function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
+export default function ProjectModal({ project, isOpen, onClose, onRegistrationUpdate }: ProjectModalProps) {
+  const { data: session } = useSession();
+  const isOwner = session?.user?.id === project.creatorId;
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -96,6 +101,18 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
               <div>
                 <h3 className="text-lg font-medium text-gray-900 dark:text-white">Additional Requirements</h3>
                 <p className="mt-2 text-gray-600 dark:text-gray-300 whitespace-pre-wrap">{project.additionalRequests}</p>
+              </div>
+            )}
+
+            {/* Registration button section */}
+            {session?.user && !isOwner && (
+              <div className="py-4 flex justify-center">
+                <RegisterButton
+                  projectId={project.id}
+                  initialIsRegistered={project.isUserRegistered || false}
+                  initialRegistrationCount={project.registrationCount || 0}
+                  onRegistrationUpdate={onRegistrationUpdate}
+                />
               </div>
             )}
 

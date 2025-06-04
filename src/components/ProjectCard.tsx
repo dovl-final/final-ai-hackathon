@@ -182,6 +182,7 @@ export default function ProjectCard({ project, onDelete, onRegistrationChange }:
         project={project}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        onRegistrationUpdate={onRegistrationChange}
       />
     </>
   );
