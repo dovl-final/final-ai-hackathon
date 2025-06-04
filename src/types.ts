@@ -11,6 +11,21 @@ export interface ProjectFormData {
   additionalRequests: string;
 }
 
+// Define the structure for project registration data
+export interface ProjectRegistration {
+  id: string;
+  userId: string;
+  projectId: string;
+  preference: number;
+  createdAt: string | Date; 
+  updatedAt: string | Date; 
+  project?: { 
+    id: string;
+    title: string;
+    description: string;
+  };
+}
+
 // Define the structure for project with creator data
 export interface ProjectWithCreator {
   id: string;
