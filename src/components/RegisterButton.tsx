@@ -34,27 +34,7 @@ export default function RegisterButton({
     if (!session || !session.user) {
       // Optionally, redirect to sign in or show a message
       // For now, we'll just prevent action if not signed in
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-      alert('Please sign in to register for projects.');
-=======
       alert('Please sign in to join projects.');
->>>>>>> Stashed changes
-=======
-      alert('Please sign in to join projects.');
->>>>>>> Stashed changes
-=======
-      alert('Please sign in to join projects.');
->>>>>>> Stashed changes
-=======
-      alert('Please sign in to join projects.');
->>>>>>> Stashed changes
-=======
-      alert('Please sign in to join projects.');
->>>>>>> Stashed changes
       // Or use: window.location.href = '/api/auth/signin';
       return;
     }
@@ -85,43 +65,11 @@ export default function RegisterButton({
       } else {
         const errorData = await response.json();
         console.error('Registration error:', errorData);
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        alert(`Failed to ${isRegistered ? 'unregister from' : 'register for'} project: ${errorData.error || 'Unknown error'}`);
-      }
-    } catch (error) {
-      console.error('Client-side registration error:', error);
-      alert(`An error occurred. Failed to ${isRegistered ? 'unregister from' : 'register for'} project. Please try again.`);
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
         alert(`Failed to ${isRegistered ? 'leave' : 'join'} project: ${errorData.error || 'Unknown error'}`);
       }
     } catch (error) {
       console.error('Client-side registration error:', error);
       alert(`An error occurred. Failed to ${isRegistered ? 'leave' : 'join'} project. Please try again.`);
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     } finally {
       setIsLoading(false);
     }
@@ -142,27 +90,7 @@ export default function RegisterButton({
     <button
       onClick={handleRegistration}
       disabled={isLoading}
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-      className={`flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 w-full sm:w-auto min-w-[120px] sm:min-w-[140px] h-9 sm:h-10 whitespace-nowrap ${
-=======
       className={`flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 w-full sm:w-auto min-w-[90px] sm:min-w-[100px] h-8 sm:h-9 whitespace-nowrap ${
->>>>>>> Stashed changes
-=======
-      className={`flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 w-full sm:w-auto min-w-[90px] sm:min-w-[100px] h-8 sm:h-9 whitespace-nowrap ${
->>>>>>> Stashed changes
-=======
-      className={`flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 w-full sm:w-auto min-w-[90px] sm:min-w-[100px] h-8 sm:h-9 whitespace-nowrap ${
->>>>>>> Stashed changes
-=======
-      className={`flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 w-full sm:w-auto min-w-[90px] sm:min-w-[100px] h-8 sm:h-9 whitespace-nowrap ${
->>>>>>> Stashed changes
-=======
-      className={`flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 w-full sm:w-auto min-w-[90px] sm:min-w-[100px] h-8 sm:h-9 whitespace-nowrap ${
->>>>>>> Stashed changes
         isRegistered
           ? 'bg-red-100 text-red-700 hover:bg-red-200 focus:ring-red-500'
           : 'bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500'
@@ -171,93 +99,21 @@ export default function RegisterButton({
       }`}
     >
       {isLoading ? (
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        <svg className="animate-spin h-4 w-4 text-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-=======
         <svg className="animate-spin h-3.5 w-3.5 text-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
->>>>>>> Stashed changes
-=======
-        <svg className="animate-spin h-3.5 w-3.5 text-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
->>>>>>> Stashed changes
-=======
-        <svg className="animate-spin h-3.5 w-3.5 text-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
->>>>>>> Stashed changes
-=======
-        <svg className="animate-spin h-3.5 w-3.5 text-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
->>>>>>> Stashed changes
-=======
-        <svg className="animate-spin h-3.5 w-3.5 text-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
->>>>>>> Stashed changes
           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
         </svg>
       ) : isRegistered ? (
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor">
-          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414L7.586 11l-1.293 1.293a1 1 0 101.414 1.414L9 12.414l1.293 1.293a1 1 0 001.414-1.414L10.414 11l1.293-1.293z" clipRule="evenodd" />
-        </svg>
-      ) : (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor">
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
         <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 sm:h-4 sm:w-4" viewBox="0 0 20 20" fill="currentColor">
           <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414L7.586 11l-1.293 1.293a1 1 0 101.414 1.414L9 12.414l1.293 1.293a1 1 0 001.414-1.414L10.414 11l1.293-1.293z" clipRule="evenodd" />
         </svg>
       ) : (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 sm:h-4 sm:w-4" viewBox="0 0 20 20" fill="currentColor">
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
           <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
         </svg>
       )}
       <span className="truncate">
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        {isLoading ? 'Processing...' : isRegistered ? 'Unregister' : 'Register'}
-=======
         {isLoading ? 'Processing...' : isRegistered ? 'Leave' : 'Join'}
->>>>>>> Stashed changes
-=======
-        {isLoading ? 'Processing...' : isRegistered ? 'Leave' : 'Join'}
->>>>>>> Stashed changes
-=======
-        {isLoading ? 'Processing...' : isRegistered ? 'Leave' : 'Join'}
->>>>>>> Stashed changes
-=======
-        {isLoading ? 'Processing...' : isRegistered ? 'Leave' : 'Join'}
->>>>>>> Stashed changes
-=======
-        {isLoading ? 'Processing...' : isRegistered ? 'Leave' : 'Join'}
->>>>>>> Stashed changes
       </span>
       <span className="text-xs px-1.5 py-0.5 rounded-full ${
         isRegistered ? 'bg-red-200 text-red-800' : 'bg-indigo-500 text-indigo-100'

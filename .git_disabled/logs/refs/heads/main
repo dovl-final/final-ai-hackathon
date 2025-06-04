@@ -1,4 +1,0 @@
-0000000000000000000000000000000000000000 d859e52d5c362fc0d7e268210446a424fea2712e shaked <shakedd@final.co.il> 1747487826 +0300	clone: from https://github.com/dovl-final/final-ai-hackathon.git
-d859e52d5c362fc0d7e268210446a424fea2712e 8018132319ec7e3f01b4c188ad921814a7fdcb3d shaked <shakedd@final.co.il> 1747575241 +0300	pull: Fast-forward
-8018132319ec7e3f01b4c188ad921814a7fdcb3d 611c78e0061050275c38d1fd607476a5f8a6cc4e shaked <shakedd@final.co.il> 1747741284 +0300	commit: added internal external env option
-611c78e0061050275c38d1fd607476a5f8a6cc4e 6482b1d9f31cfd25a2c5902a7c5961565a52fefd shaked <shakedd@final.co.il> 1748957793 +0300	reset: moving to origin/main
