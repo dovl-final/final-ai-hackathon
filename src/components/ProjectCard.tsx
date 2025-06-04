@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { ProjectWithCreator } from '../types';
 import ProjectModal from './ProjectModal';
-import ThumbUpIcon from './ThumbUpIcon'; // Adjusted path due to directory creation issue
+import ThumbUpIcon from './icons/ThumbUpIcon';
 import { ProjectRegistration } from '../generated/prisma'; // Import if needed for typing explicitly
 
 interface ProjectCardProps {
