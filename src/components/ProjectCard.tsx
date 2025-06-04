@@ -130,14 +130,14 @@ export default function ProjectCard({ project, onDelete, onRegistrationChange }:
         </div>
         
         <div className="relative mb-6">
-          <p className="text-gray-600 line-clamp-3">
+          <p className="text-gray-600 dark:text-slate-300 line-clamp-5">
             {project.description}
           </p>
           
         </div>
         
         <div className="mt-auto pt-4">
-          <div className="flex justify-between items-center text-sm text-gray-500 dark:text-slate-300 mb-4">
+          <div className="flex items-center text-sm text-gray-500 dark:text-slate-300 mb-4 gap-x-4">
             <div className="flex items-center bg-gray-50 dark:bg-slate-700 rounded-full px-3 py-1">
               <svg className="w-4 h-4 mr-1.5 text-gray-400 dark:text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857L6.5 21.036H3v-3.572L16.732 3.732z" />
