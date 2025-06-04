@@ -46,6 +46,26 @@ export default function ProjectList() {
     setProjects((prev) => prev.filter((project) => project.id !== id));
   };
 
+  const handleRegistrationChange = (projectId: string, newIsRegistered: boolean, newRegistrationCount: number) => {
+    setProjects(prevProjects => {
+      const updatedProjects = prevProjects.map(p => 
+        p.id === projectId 
+          ? { ...p, isUserRegistered: newIsRegistered, registrationCount: newRegistrationCount } 
+          : p
+      );
+      // Re-sort the updated projects list
+      return updatedProjects.sort((a, b) => {
+        const aIsJoined = a.isUserRegistered || false;
+        const bIsJoined = b.isUserRegistered || false;
+        if (aIsJoined && !bIsJoined) return -1;
+        if (!aIsJoined && bIsJoined) return 1;
+        // Optional: Add secondary sort criteria here if needed, e.g., by date or title
+        // For now, maintain original relative order if join status is the same
+        return 0; 
+      });
+    });
+  };
+
   if (loading) {
     return (
       <div className="min-h-[400px] flex flex-col justify-center items-center">
@@ -114,6 +134,7 @@ export default function ProjectList() {
           key={project.id} 
           project={project} 
           onDelete={handleDeleteProject} 
+          onRegistrationChange={handleRegistrationChange} 
         />
       ))}
     </div>

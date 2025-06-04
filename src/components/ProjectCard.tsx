@@ -12,9 +12,10 @@ import RegisterButton from './RegisterButton';
 interface ProjectCardProps {
   project: ProjectWithCreator;
   onDelete?: (id: string) => void;
+  onRegistrationChange?: (projectId: string, newIsRegistered: boolean, newRegistrationCount: number) => void;
 }
 
-export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
+export default function ProjectCard({ project, onDelete, onRegistrationChange }: ProjectCardProps) {
   const { data: session } = useSession();
   const [isDeleting, setIsDeleting] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -96,17 +97,6 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
             </span>
           </div>
 
-          {/* RegisterButton for non-owners - Top Right */}
-          {session?.user && !isOwner && (
-            <div className="shrink-0">
-              <RegisterButton
-                projectId={project.id}
-                initialIsRegistered={project.isUserRegistered || false}
-                initialRegistrationCount={project.registrationCount || 0}
-              />
-            </div>
-          )}
-          
           {isOwner && (
             <div className="flex space-x-2 shrink-0">
               <Link
@@ -161,6 +151,18 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
               <span>{formatDate(project.createdAt)}</span>
             </div>
           </div>
+
+          {/* RegisterButton - Below date/participants, above creator */}
+          {session?.user && !isOwner && (
+            <div className="mt-4 flex justify-center">
+              <RegisterButton
+                projectId={project.id}
+                initialIsRegistered={project.isUserRegistered || false}
+                initialRegistrationCount={project.registrationCount || 0}
+                onRegistrationUpdate={onRegistrationChange}
+              />
+            </div>
+          )}
 
           <div className="flex items-center pt-4 border-t border-gray-100 dark:border-gray-700">
             <div className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">
