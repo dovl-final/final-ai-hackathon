@@ -43,4 +43,6 @@ export interface ProjectWithCreator {
     name: string | null;
     email: string;
   };
+  isRegistered?: boolean;      // Optional: Indicates if the current user is registered for this project
+  userPreference?: number;     // Optional: The current user's preference (1, 2, or 3) if registered
 }
