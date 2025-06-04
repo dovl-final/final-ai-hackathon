@@ -154,7 +154,7 @@ export default function ProjectCard({ project, onDelete, onRegistrationChange }:
 
           {/* RegisterButton - Below date/participants, above creator */}
           {session?.user && !isOwner && (
-            <div className="mt-4 mb-4 flex justify-center">
+            <div className="mt-6 mb-5 flex justify-center">
               <RegisterButton
                 projectId={project.id}
                 initialIsRegistered={project.isUserRegistered || false}
