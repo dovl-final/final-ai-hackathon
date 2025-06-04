@@ -92,7 +92,7 @@ export default function RegisterButton({
       disabled={isLoading}
       className={`flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 w-full sm:w-auto min-w-[90px] sm:min-w-[100px] h-8 sm:h-9 whitespace-nowrap ${
         isRegistered
-          ? 'bg-red-100 text-red-700 hover:bg-red-200 focus:ring-red-500 dark:bg-red-900 dark:text-red-300 dark:hover:bg-red-800 dark:focus:ring-red-600'
+          ? 'bg-gray-200 text-gray-700 hover:bg-gray-300 focus:ring-gray-400 dark:bg-slate-600 dark:text-slate-200 dark:hover:bg-slate-500 dark:focus:ring-slate-400'
           : 'bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500'
       } ${
         isLoading ? 'opacity-70 cursor-wait' : ''
