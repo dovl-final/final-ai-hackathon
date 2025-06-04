@@ -6,6 +6,14 @@ import { useSession } from 'next-auth/react';
 import { ProjectWithCreator } from '../types';
 import ProjectModal from './ProjectModal';
 
+interface ProjectRegistrationResponse {
+  id?: string;
+  projectId?: string;
+  userId?: string;
+  message?: string; // For messages like 'Already registered'
+  error?: string;   // For error messages
+}
+
 interface ProjectCardProps {
   project: ProjectWithCreator;
   onDelete?: (id: string) => void;
@@ -17,6 +25,11 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isOwner = session?.user?.id === project.creatorId;
+
+  // State for registration
+  const [isRegistering, setIsRegistering] = useState(false);
+  const [registrationStatus, setRegistrationStatus] = useState<{ message: string; type: 'success' | 'error' | 'info' } | null>(null);
+  const [isRegistered, setIsRegistered] = useState(false); // In a real app, you might fetch initial registration status
   
   const formatDate = (date: Date) => {
     return new Date(date).toLocaleDateString('en-US', {
@@ -62,6 +75,35 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
   // Use project ID to pick a consistent gradient
   const gradientIndex = project.id.charCodeAt(0) % gradientVariants.length;
   const gradientClasses = gradientVariants[gradientIndex];
+
+  const handleRegister = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation(); // Prevent card click event when clicking the button
+    if (!session?.user || isOwner) return;
+
+    setIsRegistering(true);
+    setRegistrationStatus(null);
+
+    try {
+      const response = await fetch(`/api/projects/${project.id}/register`, {
+        method: 'POST',
+      });
+      const data: ProjectRegistrationResponse = await response.json();
+
+      if (response.ok) {
+        setIsRegistered(true);
+        setRegistrationStatus({ message: 'Successfully registered!', type: 'success' });
+      } else if (response.status === 409) { // Already registered or other conflict
+        setIsRegistered(true); // Assume already registered if 409
+        setRegistrationStatus({ message: data.message || 'You are already registered for this project.', type: 'info' });
+      } else {
+        setRegistrationStatus({ message: data.error || 'Failed to register.', type: 'error' });
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+      setRegistrationStatus({ message: 'An unexpected error occurred.', type: 'error' });
+    }
+    setIsRegistering(false);
+  };
 
   return (
     <>
@@ -144,6 +186,28 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
             </div>
           </div>
           
+          {/* Registration Button and Status */}
+          {session?.user && !isOwner && (
+            <div className="mt-4 mb-4">
+              <button
+                onClick={handleRegister}
+                disabled={isRegistering || isRegistered}
+                className={`w-full px-4 py-2 text-sm font-medium rounded-md transition-colors 
+                  ${isRegistered 
+                    ? 'bg-green-500 text-white cursor-not-allowed'
+                    : 'bg-indigo-600 hover:bg-indigo-700 text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50'}
+                `}
+              >
+                {isRegistering ? 'Registering...' : isRegistered ? 'Registered' : 'Register for Project'}
+              </button>
+              {registrationStatus && (
+                <p className={`mt-2 text-xs text-center ${registrationStatus.type === 'error' ? 'text-red-600' : registrationStatus.type === 'success' ? 'text-green-600' : 'text-gray-600'}`}>
+                  {registrationStatus.message}
+                </p>
+              )}
+            </div>
+          )}
+
           <div className="flex items-center pt-4 border-t border-gray-100 dark:border-gray-700">
             <div className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">
               {(project.creator.name || project.creator.email || 'U').charAt(0).toUpperCase()}
