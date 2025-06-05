@@ -4,11 +4,12 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 
 interface RegisterButtonProps {
+  buttonSize?: 'small' | 'normal';
   projectId: string;
   initialIsRegistered: boolean;
   initialRegistrationCount: number;
   onRegistrationUpdate?: (projectId: string, newIsRegistered: boolean, newRegistrationCount: number) => void;
-  isOwner?: boolean;
+  isOwner: boolean;
 }
 
 export default function RegisterButton({
@@ -16,7 +17,8 @@ export default function RegisterButton({
   initialIsRegistered,
   initialRegistrationCount,
   onRegistrationUpdate,
-  isOwner = false
+  isOwner,
+  buttonSize = 'normal'
 }: RegisterButtonProps) {
   const { data: session, status } = useSession();
   const [isLoading, setIsLoading] = useState(false);
@@ -96,13 +98,7 @@ export default function RegisterButton({
     <button
       onClick={handleRegistration}
       disabled={isLoading}
-      className={`flex items-center justify-center gap-2 px-4 py-2 rounded-full text-sm font-medium shadow-sm transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 w-full sm:w-auto min-w-[120px] sm:min-w-[140px] h-9 sm:h-10 whitespace-nowrap hover:scale-105 active:scale-95 ${
-        isRegistered
-          ? 'bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 hover:border-red-300 hover:text-red-700 focus:ring-red-400 shadow-sm dark:bg-red-900/20 dark:text-red-400 dark:border-red-800/50 dark:hover:bg-red-900/30 dark:hover:text-red-300'
-          : 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:from-indigo-700 hover:to-violet-700 focus:ring-violet-500'
-      } ${
-        isLoading ? 'opacity-70 cursor-wait' : ''
-      }`}
+      className={`btn ${isRegistered ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'} text-white font-bold ${buttonSize === 'small' ? 'py-1 px-2 text-xs' : 'py-2 px-4'} rounded transition-colors duration-150 ease-in-out ${buttonSize === 'small' ? 'min-w-[80px]' : 'w-full sm:w-auto min-w-[150px]'} disabled:opacity-70 disabled:cursor-not-allowed`}
     >
       {isLoading ? (
         <svg className="animate-spin h-4 w-4 sm:h-5 sm:w-5 text-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

@@ -138,7 +138,7 @@ h2::after {
   box-shadow: var(--shadow);
   border: 1px solid rgba(255, 255, 255, 0.2);
   transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-  overflow: hidden;
+  overflow: visible; /* Changed from hidden to debug top line issue */
   position: relative;
 }
 
@@ -150,7 +150,7 @@ h2::after {
   right: 0;
   height: 4px;
   background: var(--gradient-primary);
-  z-index: 1;
+  z-index: 10; /* Increased z-index */
   opacity: 0;
   transition: opacity var(--transition-normal);
 }

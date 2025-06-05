@@ -74,7 +74,7 @@ export default function ProjectCard({ project, onDelete, onRegistrationChange }:
   return (
     <>
       <div 
-        className="card overflow-hidden flex flex-col h-[500px] sm:h-[480px] md:h-[460px] transition-all duration-300 cursor-pointer"
+        className="card flex flex-col h-[500px] sm:h-[480px] md:h-[460px] transition-all duration-300 cursor-pointer"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={() => setIsModalOpen(true)}
@@ -83,7 +83,7 @@ export default function ProjectCard({ project, onDelete, onRegistrationChange }:
       <div className={`h-2 bg-gradient-to-r ${gradientClasses} w-full`}></div>
       
       <div className="p-7 flex flex-col flex-grow relative">
-        <div className="flex justify-between items-start gap-4 mb-4">
+        <div className="flex justify-between items-start gap-4 mb-4 relative">
           <div>
             <h3 className="text-xl font-bold text-gray-800 line-clamp-2">
               {project.title}
@@ -96,6 +96,19 @@ export default function ProjectCard({ project, onDelete, onRegistrationChange }:
               {project.environment === 'internal' ? 'Internal' : 'External'}
             </span>
           </div>
+          {/* RegisterButton moved to top right & made smaller - conditional rendering for session.user moved here too */}
+          {session?.user && !isOwner && (
+            <div className="absolute top-0 right-0 p-1 z-10">
+              <RegisterButton
+                projectId={project.id}
+                initialIsRegistered={project.isUserRegistered || false}
+                initialRegistrationCount={project.registrationCount || 0}
+                onRegistrationUpdate={onRegistrationChange}
+                isOwner={isOwner} 
+                buttonSize="small" /* Prop to control size in RegisterButton */
+              />
+            </div>
+          )}
 
           {isOwner && (
             <div className="flex space-x-2 shrink-0">
@@ -152,18 +165,7 @@ export default function ProjectCard({ project, onDelete, onRegistrationChange }:
             </div>
           </div>
 
-          {/* RegisterButton - Below date/participants, above creator */}
-          {session?.user && (
-            <div className="mt-6 mb-5 flex justify-center">
-              <RegisterButton
-                projectId={project.id}
-                initialIsRegistered={project.isUserRegistered || false}
-                initialRegistrationCount={project.registrationCount || 0}
-                onRegistrationUpdate={onRegistrationChange}
-                isOwner={isOwner}
-              />
-            </div>
-          )}
+          {/* RegisterButton has been moved to the top right section of the card */}
 
           <div className="flex items-center pt-4 border-t border-gray-100 dark:border-gray-700">
             <div className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">
