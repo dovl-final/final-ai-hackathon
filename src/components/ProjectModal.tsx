@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { useSession } from 'next-auth/react';
 import { ProjectWithCreator } from '../types';
 import RegisterButton from './RegisterButton';
@@ -12,7 +12,7 @@ interface ProjectModalProps {
   onRegistrationUpdate?: (projectId: string, newIsRegistered: boolean, newRegistrationCount: number) => void;
 }
 
-export default function ProjectModal({ project, isOpen, onClose, onRegistrationUpdate }: ProjectModalProps) {
+const ProjectModal: FC<ProjectModalProps> = ({ project, isOpen, onClose, onRegistrationUpdate }) => {
   const { data: session } = useSession();
   const isOwner = session?.user?.id === project.creatorId;
   const modalRef = useRef<HTMLDivElement>(null);
@@ -132,4 +132,6 @@ export default function ProjectModal({ project, isOpen, onClose, onRegistrationU
       </div>
     </div>
   );
-}
+};
+
+export default ProjectModal;

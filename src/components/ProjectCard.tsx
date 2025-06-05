@@ -85,7 +85,7 @@ export default function ProjectCard({ project, onDelete, onRegistrationChange }:
       <div className="p-7 flex flex-col flex-grow relative">
         <div className="flex justify-between items-start gap-4 mb-4">
           <div>
-            <h3 className="text-xl font-bold text-gray-800 line-clamp-2">
+            <h3 className="text-xl font-bold text-gray-800 line-clamp-2 max-h-14">
               {project.title}
             </h3>
             <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium mt-1 ${
