@@ -96,7 +96,7 @@ export default function RegisterButton({
       disabled={isLoading}
       className={`flex items-center justify-center gap-2 px-4 py-2 rounded-full text-sm font-medium shadow-sm transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 w-full sm:w-auto min-w-[120px] sm:min-w-[140px] h-9 sm:h-10 whitespace-nowrap hover:scale-105 active:scale-95 ${
         isRegistered
-          ? 'bg-white text-red-700 border border-red-300 hover:bg-red-50 hover:border-red-400 focus:ring-red-500 dark:bg-slate-800 dark:text-red-300 dark:border-red-700 dark:hover:bg-slate-700'
+          ? 'bg-gradient-to-r from-red-500 to-pink-500 text-white border border-red-400 hover:from-red-600 hover:to-pink-600 hover:border-red-500 focus:ring-red-500 shadow-md dark:from-red-700 dark:to-pink-700 dark:border-red-600 dark:hover:from-red-800 dark:hover:to-pink-800'
           : 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:from-indigo-700 hover:to-violet-700 focus:ring-violet-500'
       } ${
         isLoading ? 'opacity-70 cursor-wait' : ''
@@ -109,7 +109,7 @@ export default function RegisterButton({
         </svg>
       ) : isRegistered ? (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
         </svg>
       ) : (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
