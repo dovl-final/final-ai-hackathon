@@ -105,13 +105,14 @@ export default function ProjectModal({ project, isOpen, onClose, onRegistrationU
             )}
 
             {/* Registration button section */}
-            {session?.user && !isOwner && (
+            {session?.user && (
               <div className="py-4 flex justify-center">
                 <RegisterButton
                   projectId={project.id}
                   initialIsRegistered={project.isUserRegistered || false}
                   initialRegistrationCount={project.registrationCount || 0}
                   onRegistrationUpdate={onRegistrationUpdate}
+                  isOwner={isOwner}
                 />
               </div>
             )}

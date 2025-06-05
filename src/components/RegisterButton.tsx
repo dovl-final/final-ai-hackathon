@@ -8,13 +8,15 @@ interface RegisterButtonProps {
   initialIsRegistered: boolean;
   initialRegistrationCount: number;
   onRegistrationUpdate?: (projectId: string, newIsRegistered: boolean, newRegistrationCount: number) => void;
+  isOwner?: boolean;
 }
 
 export default function RegisterButton({
   projectId,
   initialIsRegistered,
   initialRegistrationCount,
-  onRegistrationUpdate
+  onRegistrationUpdate,
+  isOwner = false
 }: RegisterButtonProps) {
   const { data: session, status } = useSession();
   const [isLoading, setIsLoading] = useState(false);
@@ -117,7 +119,9 @@ export default function RegisterButton({
         </svg>
       )}
       <span className="truncate">
-        {isLoading ? '' : isRegistered ? 'Leave' : 'Join'}
+        {isLoading ? '' : isRegistered 
+          ? isOwner ? 'Leave My Project' : 'Leave' 
+          : isOwner ? 'Join My Project' : 'Join'}
       </span>
     </button>
   );
