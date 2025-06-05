@@ -96,7 +96,7 @@ export default function RegisterButton({
       disabled={isLoading}
       className={`flex items-center justify-center gap-2 px-4 py-2 rounded-full text-sm font-medium shadow-sm transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 w-full sm:w-auto min-w-[120px] sm:min-w-[140px] h-9 sm:h-10 whitespace-nowrap hover:scale-105 active:scale-95 ${
         isRegistered
-          ? 'bg-white text-red-600 border border-red-200 hover:bg-red-50 hover:border-red-300 hover:text-red-700 focus:ring-red-400 shadow-sm dark:bg-slate-800 dark:text-red-400 dark:border-red-800 dark:hover:bg-slate-700 dark:hover:text-red-300'
+          ? 'bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 hover:border-red-300 hover:text-red-700 focus:ring-red-400 shadow-sm dark:bg-red-900/20 dark:text-red-400 dark:border-red-800/50 dark:hover:bg-red-900/30 dark:hover:text-red-300'
           : 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:from-indigo-700 hover:to-violet-700 focus:ring-violet-500'
       } ${
         isLoading ? 'opacity-70 cursor-wait' : ''
