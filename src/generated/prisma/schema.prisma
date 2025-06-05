@@ -19,15 +19,16 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String                @id @default(cuid())
   name          String?
-  email         String    @unique
+  email         String                @unique
   emailVerified DateTime?
   image         String?
-  isAdmin       Boolean   @default(false) // Added for admin role
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  projects      Project[] @relation("ProjectCreator")
+  isAdmin       Boolean               @default(false) // Added for admin role
+  createdAt     DateTime              @default(now())
+  updatedAt     DateTime              @updatedAt
+  projects      Project[]             @relation("ProjectCreator")
+  registrations ProjectRegistration[] @relation("UserRegistrations")
   accounts      Account[]
   sessions      Session[]
 }
@@ -63,17 +64,31 @@ model Session {
 }
 
 model Project {
-  id                 String   @id @default(cuid())
+  id                 String                @id @default(cuid())
   title              String
   description        String
   minTeamSize        Int
   maxTeamSize        Int
-  environment        String   @default("internal") // 'internal' or 'external'
+  environment        String                @default("internal") // 'internal' or 'external'
   additionalRequests String?
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  createdAt          DateTime              @default(now())
+  updatedAt          DateTime              @updatedAt
   creatorId          String
-  creator            User     @relation("ProjectCreator", fields: [creatorId], references: [id])
+  creator            User                  @relation("ProjectCreator", fields: [creatorId], references: [id])
+  registrations      ProjectRegistration[] @relation("ProjectRegistrations")
 
   @@index([creatorId])
+}
+
+model ProjectRegistration {
+  id        String   @id @default(cuid())
+  projectId String
+  userId    String
+  createdAt DateTime @default(now())
+  project   Project  @relation("ProjectRegistrations", fields: [projectId], references: [id], onDelete: Cascade)
+  user      User     @relation("UserRegistrations", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, userId])
+  @@index([projectId])
+  @@index([userId])
 }

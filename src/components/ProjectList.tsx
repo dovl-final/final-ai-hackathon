@@ -16,7 +16,20 @@ export default function ProjectList() {
         if (!response.ok) {
           throw new Error('Failed to fetch projects');
         }
-        const data = await response.json();
+        let data: ProjectWithCreator[] = await response.json();
+        // Sort projects: joined projects first
+        data.sort((a, b) => {
+          // a.isUserRegistered might be undefined if not explicitly set, treat as false
+          const aIsJoined = a.isUserRegistered || false;
+          const bIsJoined = b.isUserRegistered || false;
+          if (aIsJoined && !bIsJoined) {
+            return -1; // a comes first
+          }
+          if (!aIsJoined && bIsJoined) {
+            return 1; // b comes first
+          }
+          return 0; // no change in order relative to each other
+        });
         setProjects(data);
       } catch (err) {
         console.error('Error fetching projects:', err);
@@ -31,6 +44,26 @@ export default function ProjectList() {
 
   const handleDeleteProject = (id: string) => {
     setProjects((prev) => prev.filter((project) => project.id !== id));
+  };
+
+  const handleRegistrationChange = (projectId: string, newIsRegistered: boolean, newRegistrationCount: number) => {
+    setProjects(prevProjects => {
+      const updatedProjects = prevProjects.map(p => 
+        p.id === projectId 
+          ? { ...p, isUserRegistered: newIsRegistered, registrationCount: newRegistrationCount } 
+          : p
+      );
+      // Re-sort the updated projects list
+      return updatedProjects.sort((a, b) => {
+        const aIsJoined = a.isUserRegistered || false;
+        const bIsJoined = b.isUserRegistered || false;
+        if (aIsJoined && !bIsJoined) return -1;
+        if (!aIsJoined && bIsJoined) return 1;
+        // Optional: Add secondary sort criteria here if needed, e.g., by date or title
+        // For now, maintain original relative order if join status is the same
+        return 0; 
+      });
+    });
   };
 
   if (loading) {
@@ -95,12 +128,13 @@ export default function ProjectList() {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3 transition-all duration-300">
+    <div className="grid grid-cols-1 gap-8 sm:gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3 transition-all duration-300 auto-rows-fr">
       {projects.map((project) => (
         <ProjectCard 
           key={project.id} 
           project={project} 
           onDelete={handleDeleteProject} 
+          onRegistrationChange={handleRegistrationChange} 
         />
       ))}
     </div>

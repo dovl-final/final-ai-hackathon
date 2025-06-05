@@ -11,6 +11,14 @@ export interface ProjectFormData {
   additionalRequests: string;
 }
 
+// Define the structure for project registration
+export interface ProjectRegistration {
+  id: string;
+  projectId: string;
+  userId: string;
+  createdAt: Date;
+}
+
 // Define the structure for project with creator data
 export interface ProjectWithCreator {
   id: string;
@@ -28,4 +36,7 @@ export interface ProjectWithCreator {
     name: string | null;
     email: string;
   };
+  registrations?: ProjectRegistration[];
+  isUserRegistered?: boolean; // Flag to indicate if current user is registered
+  registrationCount?: number; // Count of total registrations
 }

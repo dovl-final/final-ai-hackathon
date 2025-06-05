@@ -5,19 +5,25 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { ProjectWithCreator } from '../types';
 import ProjectModal from './ProjectModal';
+import RegisterButton from './RegisterButton';
+
+// Removed ProjectRegistrationResponse interface, handled by RegisterButton
 
 interface ProjectCardProps {
   project: ProjectWithCreator;
   onDelete?: (id: string) => void;
+  onRegistrationChange?: (projectId: string, newIsRegistered: boolean, newRegistrationCount: number) => void;
 }
 
-export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
+export default function ProjectCard({ project, onDelete, onRegistrationChange }: ProjectCardProps) {
   const { data: session } = useSession();
   const [isDeleting, setIsDeleting] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isOwner = session?.user?.id === project.creatorId;
-  
+
+  // Registration state is now managed by RegisterButton component
+
   const formatDate = (date: Date) => {
     return new Date(date).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -63,10 +69,12 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
   const gradientIndex = project.id.charCodeAt(0) % gradientVariants.length;
   const gradientClasses = gradientVariants[gradientIndex];
 
+  // handleRegister logic is now encapsulated in RegisterButton component
+
   return (
     <>
       <div 
-        className="card overflow-hidden flex flex-col h-full transition-all duration-300 cursor-pointer"
+        className="card overflow-hidden flex flex-col h-[500px] sm:h-[480px] md:h-[460px] transition-all duration-300 cursor-pointer"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={() => setIsModalOpen(true)}
@@ -74,7 +82,7 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
       {/* Card header with decorative gradient accent */}
       <div className={`h-2 bg-gradient-to-r ${gradientClasses} w-full`}></div>
       
-      <div className="p-7 flex flex-col flex-grow">
+      <div className="p-7 flex flex-col flex-grow relative">
         <div className="flex justify-between items-start gap-4 mb-4">
           <div>
             <h3 className="text-xl font-bold text-gray-800 line-clamp-2">
@@ -88,7 +96,7 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
               {project.environment === 'internal' ? 'Internal' : 'External'}
             </span>
           </div>
-          
+
           {isOwner && (
             <div className="flex space-x-2 shrink-0">
               <Link
@@ -121,15 +129,15 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
           )}
         </div>
         
-        <div className="relative mb-6">
-          <p className="text-gray-600 line-clamp-3">
+        <div className="relative mb-6 h-[140px] sm:h-[120px] md:h-[110px] overflow-hidden">
+          <p className="text-gray-600 dark:text-slate-300 line-clamp-5 sm:line-clamp-4">
             {project.description}
           </p>
-          
+          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white dark:from-gray-800 to-transparent"></div>
         </div>
         
         <div className="mt-auto pt-4">
-          <div className="flex flex-wrap gap-4 text-sm text-gray-500 dark:text-slate-300 mb-4">
+          <div className="flex items-center justify-center text-sm text-gray-500 dark:text-slate-300 mb-4 gap-x-4">
             <div className="flex items-center bg-gray-50 dark:bg-slate-700 rounded-full px-3 py-1">
               <svg className="w-4 h-4 mr-1.5 text-gray-400 dark:text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857L6.5 21.036H3v-3.572L16.732 3.732z" />
@@ -143,7 +151,20 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
               <span>{formatDate(project.createdAt)}</span>
             </div>
           </div>
-          
+
+          {/* RegisterButton - Below date/participants, above creator */}
+          {session?.user && (
+            <div className="mt-6 mb-5 flex justify-center">
+              <RegisterButton
+                projectId={project.id}
+                initialIsRegistered={project.isUserRegistered || false}
+                initialRegistrationCount={project.registrationCount || 0}
+                onRegistrationUpdate={onRegistrationChange}
+                isOwner={isOwner}
+              />
+            </div>
+          )}
+
           <div className="flex items-center pt-4 border-t border-gray-100 dark:border-gray-700">
             <div className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">
               {(project.creator.name || project.creator.email || 'U').charAt(0).toUpperCase()}
@@ -162,6 +183,7 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
         project={project}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        onRegistrationUpdate={onRegistrationChange}
       />
     </>
   );

@@ -6,6 +6,9 @@ import { authOptions } from "@/lib/auth";
 // GET: Fetch all projects
 export async function GET() {
   try {
+    const session = await getServerSession(authOptions);
+    const userId = session?.user?.id;
+    
     const projects = await prisma.project.findMany({
       include: {
         creator: {
@@ -16,12 +19,29 @@ export async function GET() {
             image: true,
           },
         },
+        registrations: true,
       },
       orderBy: {
         createdAt: "desc",
       },
     });
-    return NextResponse.json(projects);
+    
+    // Add registration information for each project
+    const projectsWithRegistrationInfo = projects.map(project => {
+      const registrationCount = project.registrations.length;
+      const isUserRegistered = userId ? project.registrations.some(reg => reg.userId === userId) : false;
+      
+      // Remove the full registrations array from the response to reduce payload size
+      const { registrations, ...projectWithoutRegistrations } = project;
+      
+      return {
+        ...projectWithoutRegistrations,
+        registrationCount,
+        isUserRegistered
+      };
+    });
+    
+    return NextResponse.json(projectsWithRegistrationInfo);
   } catch (error) {
     console.error("Error fetching projects:", error);
     return NextResponse.json(
