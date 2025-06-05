@@ -80,7 +80,7 @@ export default function ProjectCard({ project, onDelete, onRegistrationChange }:
         onClick={() => setIsModalOpen(true)}
       >
       {/* Card header with decorative gradient accent */}
-      <div className={`h-2 bg-gradient-to-r ${gradientClasses} w-full`}></div>
+      <div className={`h-2 bg-gradient-to-r ${gradientClasses} w-full rounded-t-[1.25rem]`}></div>
       
       <div className="p-7 flex flex-col flex-grow relative">
         <div className="flex justify-between items-start gap-4 mb-4 relative">
