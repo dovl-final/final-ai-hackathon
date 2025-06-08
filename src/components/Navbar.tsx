@@ -47,19 +47,6 @@ export default function Navbar() {
               >
                 Submit Project
               </Link>
-              {/* Visualization link - only visible to admin users */}
-              {session?.user?.isAdmin && (
-                <Link
-                  href="/visualization"
-                  className="nav-link text-gray-600 hover:text-indigo-600 flex items-center px-3 py-2 text-sm font-medium"
-                >
-                  <svg className="w-4 h-4 mr-1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8 13V17M12 9V17M16 5V17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="2"/>
-                  </svg>
-                  Visualization
-                </Link>
-              )}
               <a
                 href="https://genai-genesis-guide.lovable.app/"
                 target="_blank"
@@ -167,22 +154,6 @@ export default function Navbar() {
               >
                 Submit Project
               </Link>
-              {/* Visualization link - only visible to admin users */}
-              {session?.user?.isAdmin && (
-                <Link
-                  href="/visualization"
-                  className="mobile-nav-link block px-3 py-2 my-1 rounded-md text-base font-medium text-gray-600 hover:text-indigo-600 hover:bg-gray-50 transition-colors active:bg-gray-100 active:scale-95 transform"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <div className="flex items-center">
-                    <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M8 13V17M12 9V17M16 5V17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="2"/>
-                    </svg>
-                    Visualization
-                  </div>
-                </Link>
-              )}
               <a
                 href="https://genai-genesis-guide.lovable.app/"
                 target="_blank"
