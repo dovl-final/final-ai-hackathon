@@ -44,25 +44,34 @@ const ProjectModal: FC<ProjectModalProps> = ({ project, isOpen, onClose, onRegis
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black bg-opacity-50 flex items-center justify-center p-4">
-      <div
-        ref={modalRef}
-        className="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] flex flex-col"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="modal-title"
-      >
+    <div className="fixed inset-0 z-50 overflow-y-auto">
+      {/* Backdrop overlay with blur effect */}
+      <div 
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
+        onClick={onClose}
+      />
+      
+      {/* Modal panel */}
+      <div className="flex min-h-full items-center justify-center p-4">
+        <div
+          ref={modalRef}
+          className="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] flex flex-col"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-title"
+        >
         <div className="flex justify-between items-start p-6 border-b border-gray-200 dark:border-gray-700">
           <h2 id="modal-title" className="text-2xl font-bold text-gray-900 dark:text-white">
             {project.title}
           </h2>
-          <button
+          {/* Close button */}
+          <button 
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-full p-1"
+            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:text-gray-300 dark:hover:text-gray-100"
           >
             <span className="sr-only">Close</span>
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
