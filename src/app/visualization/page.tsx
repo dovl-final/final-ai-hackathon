@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import ProjectRegistrationChart from "@/components/visualization/ProjectRegistrationChart";
 
 export const metadata = {
-  title: 'Project Registrations Visualization | Final AI Hackathon',
+  title: 'Project Registration | Admin | Final AI Hackathon',
   description: 'View a visualization of projects and their participants',
 };
 

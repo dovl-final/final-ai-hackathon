@@ -28,7 +28,7 @@ export default function AdminNavbar() {
                   <path d="M8 13V17M12 9V17M16 5V17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="2"/>
                 </svg>
-                Visualization
+                Project Registration
               </Link>
               <Link
                 href="/admin"
