@@ -124,63 +124,65 @@ const ProjectRegistrationChart: React.FC = () => {
           {/* Visual representation of projects and their registrations */}
           <div className="mb-8 p-6 bg-gray-50 dark:bg-gray-700/50 rounded-xl border border-gray-100 dark:border-gray-600">
             <h3 className="text-lg font-semibold mb-4">Registration Overview</h3>
-            <div className="flex flex-wrap gap-4">
+            <div className="space-y-4">
               {projects.map(project => (
                 <div 
                   key={project.id} 
-                  className="relative flex flex-col items-center p-4"
-                  style={{ 
-                    width: `${Math.max(150, Math.min(300, project.registrationCount * 20 + 150))}px` 
-                  }}
+                  className="flex items-center justify-between p-2 border border-gray-100 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-800/50"
                 >
-                  {/* Project circle - size based on registration count */}
-                  <div 
-                    className="rounded-full bg-indigo-600 dark:bg-indigo-500 flex items-center justify-center text-white mb-3"
-                    style={{ 
-                      width: `${Math.max(50, Math.min(100, project.registrationCount * 10 + 50))}px`,
-                      height: `${Math.max(50, Math.min(100, project.registrationCount * 10 + 50))}px` 
-                    }}
-                  >
-                    <span className="font-bold">{project.registrationCount}</span>
+                  {/* Left side: Registration count circle */}
+                  <div className="flex items-center gap-2">
+                    <div 
+                      className="rounded-full bg-indigo-600 dark:bg-indigo-500 flex items-center justify-center text-white"
+                      style={{ 
+                        width: "50px",
+                        height: "50px" 
+                      }}
+                    >
+                      <span className="font-bold">{project.registrationCount}</span>
+                    </div>
+                    
+                    {/* User avatars */}
+                    {project.registeredUsers.length > 0 && (
+                      <div className="flex -space-x-2">
+                        {project.registeredUsers.slice(0, 3).map(user => (
+                          <div 
+                            key={user.id} 
+                            className="w-8 h-8 rounded-full bg-green-500 dark:bg-green-600 flex items-center justify-center text-white text-xs ring-2 ring-white dark:ring-gray-800"
+                            title={user.name || user.email}
+                          >
+                            {user.image ? (
+                              <img
+                                src={user.image}
+                                alt={user.name || "User"}
+                                className="w-full h-full rounded-full object-cover"
+                              />
+                            ) : (
+                              <span>{user.name?.charAt(0) || user.email.charAt(0)}</span>
+                            )}
+                          </div>
+                        ))}
+                        {project.registeredUsers.length > 3 && (
+                          <div className="w-8 h-8 rounded-full bg-gray-300 dark:bg-gray-500 flex items-center justify-center text-gray-700 dark:text-gray-100 text-xs ring-2 ring-white dark:ring-gray-800">
+                            +{project.registeredUsers.length - 3}
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                   
-                  {/* Project title */}
-                  <p className="text-center font-medium text-sm dark:text-gray-100">{project.title}</p>
-                  
-                  {/* User avatars */}
-                  {project.registeredUsers.length > 0 && (
-                    <div className="flex flex-wrap justify-center mt-3 gap-1">
-                      {project.registeredUsers.slice(0, 5).map(user => (
-                        <div 
-                          key={user.id} 
-                          className="w-8 h-8 rounded-full bg-green-500 dark:bg-green-600 flex items-center justify-center text-white text-xs"
-                          title={user.name || user.email}
-                        >
-                          {user.image ? (
-                            <img
-                              src={user.image}
-                              alt={user.name || "User"}
-                              className="w-full h-full rounded-full object-cover"
-                            />
-                          ) : (
-                            <span>{user.name?.charAt(0) || user.email.charAt(0)}</span>
-                          )}
-                        </div>
-                      ))}
-                      {project.registeredUsers.length > 5 && (
-                        <div className="w-8 h-8 rounded-full bg-gray-300 dark:bg-gray-500 flex items-center justify-center text-gray-700 dark:text-gray-100 text-xs">
-                          +{project.registeredUsers.length - 5}
-                        </div>
-                      )}
-                    </div>
-                  )}
+                  {/* Right side: Project title */}
+                  <div className="text-right">
+                    <p className="font-medium text-sm dark:text-gray-100 max-w-[200px] truncate">{project.title}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Team: {project.minTeamSize}-{project.maxTeamSize}</p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
           
           {/* Detailed project information */}
-          <div className="space-y-6">
+          <div className="space-y-6 mt-8">
             {projects.map(project => (
               <div key={project.id} className="border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-lg p-6">
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
