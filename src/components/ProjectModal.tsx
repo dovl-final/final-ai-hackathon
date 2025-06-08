@@ -137,6 +137,7 @@ const ProjectModal: FC<ProjectModalProps> = ({ project, isOpen, onClose, onRegis
               </div>
             </div>
           </div>
+          </div>
         </div>
       </div>
     </div>
