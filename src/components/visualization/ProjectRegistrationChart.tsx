@@ -1,9 +1,36 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { ProjectWithCreator, RegisteredUser } from "@/types";
 
-// Define the interface locally since we're getting data from the API
+// Define all interfaces locally since we're getting data from the API
+interface User {
+  id: string;
+  name: string | null;
+  email: string;
+  image: string | null;
+}
+
+interface RegisteredUser {
+  id: string;
+  name: string | null;
+  email: string;
+  image: string | null;
+}
+
+interface ProjectWithCreator {
+  id: string;
+  title: string;
+  description: string;
+  minTeamSize: number;
+  maxTeamSize: number;
+  environment: 'internal' | 'external';
+  additionalRequests: string | null;
+  createdAt: string; // ISO date string from API
+  updatedAt: string; // ISO date string from API
+  creatorId: string;
+  creator: User;
+}
+
 interface ProjectWithRegistrations extends ProjectWithCreator {
   registrationCount: number;
   registeredUsers: RegisteredUser[];
