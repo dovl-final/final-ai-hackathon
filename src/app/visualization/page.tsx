@@ -16,6 +16,11 @@ export default async function VisualizationPage() {
   if (!session) {
     redirect("/api/auth/signin");
   }
+  
+  // Redirect to homepage if not an admin
+  if (!session.user?.isAdmin) {
+    redirect("/");
+  }
 
   return (
     <div className="min-h-screen flex flex-col">

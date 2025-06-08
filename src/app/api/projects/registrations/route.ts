@@ -19,6 +19,14 @@ export async function GET(request: NextRequest) {
         { status: 401 }
       );
     }
+    
+    // Check if user is admin
+    if (!session.user?.isAdmin) {
+      return NextResponse.json(
+        { error: "You must be an admin to access this data" },
+        { status: 403 }
+      );
+    }
 
     const projects = await prisma.project.findMany({
       include: {
