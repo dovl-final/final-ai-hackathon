@@ -270,27 +270,27 @@ const ProjectRegistrationChart: React.FC = () => {
               {projects.map(project => (
                 <div 
                   key={project.id} 
-                  className="flex items-center justify-between p-2 border border-gray-100 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-800/50 cursor-pointer hover:shadow-md transition-shadow duration-200 hover:border-indigo-200 dark:hover:border-indigo-700"
+                  className="grid grid-cols-[1fr,auto] gap-2 p-2 border border-gray-100 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-800/50 cursor-pointer hover:shadow-md transition-shadow duration-200 hover:border-indigo-200 dark:hover:border-indigo-700"
                   onClick={() => {
                     setSelectedProject(project);
                     setIsModalOpen(true);
                   }}
                 >
                   {/* Left side: Project title */}
-                  <div className="text-left">
-                    <p className="font-medium text-sm dark:text-gray-100 max-w-[200px] truncate">{project.title}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">Team: {project.minTeamSize}-{project.maxTeamSize}</p>
+                  <div className="text-left self-center overflow-hidden">
+                    <p className="font-medium text-sm dark:text-gray-100 truncate">{project.title}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate">Team: {project.minTeamSize}-{project.maxTeamSize}</p>
                   </div>
                   
                   {/* Right side: Registration count circle */}
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 justify-self-end self-center flex-shrink-0">
                     {/* User avatars */}
                     {project.registeredUsers.length > 0 && (
-                      <div className="flex -space-x-2">
+                      <div className="flex -space-x-2 flex-shrink-0">
                         {project.registeredUsers.slice(0, 3).map(user => (
                           <div 
                             key={user.id} 
-                            className="w-8 h-8 rounded-full bg-green-500 dark:bg-green-600 flex items-center justify-center text-white text-xs ring-2 ring-white dark:ring-gray-800"
+                            className="w-7 h-7 rounded-full bg-green-500 dark:bg-green-600 flex items-center justify-center text-white text-xs ring-2 ring-white dark:ring-gray-800 flex-shrink-0"
                             title={user.name || user.email}
                           >
                             {user.image ? (
@@ -305,7 +305,7 @@ const ProjectRegistrationChart: React.FC = () => {
                           </div>
                         ))}
                         {project.registeredUsers.length > 3 && (
-                          <div className="w-8 h-8 rounded-full bg-gray-300 dark:bg-gray-500 flex items-center justify-center text-gray-700 dark:text-gray-100 text-xs ring-2 ring-white dark:ring-gray-800">
+                          <div className="w-7 h-7 rounded-full bg-gray-300 dark:bg-gray-500 flex items-center justify-center text-gray-700 dark:text-gray-100 text-xs ring-2 ring-white dark:ring-gray-800 flex-shrink-0">
                             +{project.registeredUsers.length - 3}
                           </div>
                         )}
@@ -313,10 +313,11 @@ const ProjectRegistrationChart: React.FC = () => {
                     )}
                     
                     <div 
-                      className="rounded-full bg-indigo-600 dark:bg-indigo-500 flex items-center justify-center text-white"
+                      className="rounded-full bg-indigo-600 dark:bg-indigo-500 flex items-center justify-center text-white flex-shrink-0"
                       style={{ 
-                        width: "50px",
-                        height: "50px" 
+                        width: "40px",
+                        height: "40px",
+                        minWidth: "40px"
                       }}
                     >
                       <span className="font-bold">{project.registrationCount}</span>
