@@ -14,7 +14,12 @@ export default function AdminNavbar() {
   if (!session?.user?.isAdmin) return null;
   
   const isActive = (path: string) => {
-    return pathname === path;
+    // For the dashboard, check exact match
+    if (path === '/admin') {
+      return pathname === '/admin';
+    }
+    // For other paths, check if pathname is the path or starts with the path (for nested routes)
+    return pathname === path || pathname.startsWith(`${path}/`);
   };
 
   return (
@@ -23,7 +28,7 @@ export default function AdminNavbar() {
         <div className="flex justify-between h-16 items-center">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
-              <Link href="/admin" className="font-bold text-xl dark:text-white">
+              <Link href="/admin/visualization" className="font-bold text-xl dark:text-white">
                 Admin Panel
               </Link>
             </div>

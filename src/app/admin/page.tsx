@@ -1,37 +1,6 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
-import prisma from "@/lib/db";
-import ProjectTable from "@/components/admin/ProjectTable";
+import { redirect } from "next/navigation";
 
-export default async function AdminDashboardPage() {
-  const session = await getServerSession(authOptions);
-  
-  // Fetch all projects for admin view
-  const projects = await prisma.project.findMany({
-    include: {
-      creator: {
-        select: {
-          id: true,
-          name: true,
-          email: true,
-        },
-      },
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
-
-  return (
-    <div>
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold dark:text-white">Admin Dashboard</h1>
-      </div>
-      
-      <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6 mb-6">
-        <h2 className="text-xl font-semibold mb-4 dark:text-gray-100">Projects</h2>
-        <ProjectTable projects={projects} />
-      </div>
-    </div>
-  );
+// Redirect admin dashboard to visualization page
+export default function AdminDashboardRedirect() {
+  redirect("/admin/visualization");
 }
