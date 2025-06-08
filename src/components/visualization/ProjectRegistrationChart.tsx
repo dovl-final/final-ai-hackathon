@@ -1,7 +1,13 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { ProjectWithRegistrations } from "@/types";
+import { ProjectWithCreator, RegisteredUser } from "@/types";
+
+// Define the interface locally since we're getting data from the API
+interface ProjectWithRegistrations extends ProjectWithCreator {
+  registrationCount: number;
+  registeredUsers: RegisteredUser[];
+}
 
 const ProjectRegistrationChart: React.FC = () => {
   const [projects, setProjects] = useState<ProjectWithRegistrations[]>([]);
