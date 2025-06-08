@@ -81,9 +81,39 @@ const ProjectRegistrationChart: React.FC = () => {
     );
   }
 
+  // Calculate total registrations across all projects
+  const totalRegistrations = projects.reduce((total, project) => total + project.registrationCount, 0);
+  
+  // Get unique user count (some users might be registered for multiple projects)
+  const uniqueUsers = new Set();
+  projects.forEach(project => {
+    project.registeredUsers.forEach(user => {
+      uniqueUsers.add(user.id);
+    });
+  });
+  const uniqueUserCount = uniqueUsers.size;
+
   return (
     <div className="bg-white rounded-xl shadow-md p-6">
       <h2 className="text-2xl font-bold mb-6">Project Registration Visualization</h2>
+      
+      {/* Summary statistics */}
+      {projects.length > 0 && (
+        <div className="grid grid-cols-3 gap-4 mb-8">
+          <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 text-center">
+            <p className="text-sm font-medium text-blue-500">Total Projects</p>
+            <p className="text-3xl font-bold text-blue-700">{projects.length}</p>
+          </div>
+          <div className="bg-green-50 p-4 rounded-xl border border-green-100 text-center">
+            <p className="text-sm font-medium text-green-500">Unique Participants</p>
+            <p className="text-3xl font-bold text-green-700">{uniqueUserCount}</p>
+          </div>
+          <div className="bg-purple-50 p-4 rounded-xl border border-purple-100 text-center">
+            <p className="text-sm font-medium text-purple-500">Total Registrations</p>
+            <p className="text-3xl font-bold text-purple-700">{totalRegistrations}</p>
+          </div>
+        </div>
+      )}
       
       {projects.length === 0 ? (
         <div className="text-center text-gray-500 py-8">
