@@ -99,17 +99,17 @@ const ProjectRegistrationChart: React.FC = () => {
       
       {/* Summary statistics */}
       {projects.length > 0 && (
-        <div className="grid grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
           <div className="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-xl border border-blue-100 dark:border-blue-800 text-center">
             <p className="text-sm font-medium text-blue-500 dark:text-blue-300">Total Projects</p>
             <p className="text-3xl font-bold text-blue-700 dark:text-blue-200">{projects.length}</p>
           </div>
           <div className="bg-green-50 dark:bg-green-900/30 p-4 rounded-xl border border-green-100 dark:border-green-800 text-center">
-            <p className="text-sm font-medium text-green-500 dark:text-green-300">Unique Participants</p>
+            <p className="text-xs sm:text-sm font-medium text-green-500 dark:text-green-300">Unique Participants</p>
             <p className="text-3xl font-bold text-green-700 dark:text-green-200">{uniqueUserCount}</p>
           </div>
           <div className="bg-purple-50 dark:bg-purple-900/30 p-4 rounded-xl border border-purple-100 dark:border-purple-800 text-center">
-            <p className="text-sm font-medium text-purple-500 dark:text-purple-300">Total Registrations</p>
+            <p className="text-xs sm:text-sm font-medium text-purple-500 dark:text-purple-300">Total Registrations</p>
             <p className="text-3xl font-bold text-purple-700 dark:text-purple-200">{totalRegistrations}</p>
           </div>
         </div>
