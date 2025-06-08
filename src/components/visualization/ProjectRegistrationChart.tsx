@@ -130,18 +130,14 @@ const ProjectRegistrationChart: React.FC = () => {
                   key={project.id} 
                   className="flex items-center justify-between p-2 border border-gray-100 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-800/50"
                 >
-                  {/* Left side: Registration count circle */}
+                  {/* Left side: Project title */}
+                  <div className="text-left">
+                    <p className="font-medium text-sm dark:text-gray-100 max-w-[200px] truncate">{project.title}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Team: {project.minTeamSize}-{project.maxTeamSize}</p>
+                  </div>
+                  
+                  {/* Right side: Registration count circle */}
                   <div className="flex items-center gap-2">
-                    <div 
-                      className="rounded-full bg-indigo-600 dark:bg-indigo-500 flex items-center justify-center text-white"
-                      style={{ 
-                        width: "50px",
-                        height: "50px" 
-                      }}
-                    >
-                      <span className="font-bold">{project.registrationCount}</span>
-                    </div>
-                    
                     {/* User avatars */}
                     {project.registeredUsers.length > 0 && (
                       <div className="flex -space-x-2">
@@ -169,12 +165,16 @@ const ProjectRegistrationChart: React.FC = () => {
                         )}
                       </div>
                     )}
-                  </div>
-                  
-                  {/* Right side: Project title */}
-                  <div className="text-right">
-                    <p className="font-medium text-sm dark:text-gray-100 max-w-[200px] truncate">{project.title}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">Team: {project.minTeamSize}-{project.maxTeamSize}</p>
+                    
+                    <div 
+                      className="rounded-full bg-indigo-600 dark:bg-indigo-500 flex items-center justify-center text-white"
+                      style={{ 
+                        width: "50px",
+                        height: "50px" 
+                      }}
+                    >
+                      <span className="font-bold">{project.registrationCount}</span>
+                    </div>
                   </div>
                 </div>
               ))}
