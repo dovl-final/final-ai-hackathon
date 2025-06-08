@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Fragment } from "react";
 
 // Define all interfaces locally since we're getting data from the API
 interface User {
@@ -36,10 +36,145 @@ interface ProjectWithRegistrations extends ProjectWithCreator {
   registeredUsers: RegisteredUser[];
 }
 
+// Project details modal component
+const ProjectModal: React.FC<{
+  project: ProjectWithRegistrations | null;
+  isOpen: boolean;
+  onClose: () => void;
+}> = ({ project, isOpen, onClose }) => {
+  if (!project) return null;
+  
+  // Close modal when Escape key is pressed
+  useEffect(() => {
+    const handleEscapeKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+    
+    window.addEventListener('keydown', handleEscapeKey);
+    return () => window.removeEventListener('keydown', handleEscapeKey);
+  }, [isOpen, onClose]);
+  
+  // Prevent scrolling of the background when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+  
+  if (!isOpen) return null;
+  
+  return (
+    <div className="fixed inset-0 z-50 overflow-y-auto">
+      {/* Backdrop overlay */}
+      <div 
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
+        onClick={onClose}
+      />
+      
+      {/* Modal panel */}
+      <div className="flex min-h-full items-center justify-center p-4">
+        <div className="relative transform overflow-hidden rounded-xl bg-white dark:bg-gray-800 p-6 text-left shadow-xl transition-all w-full max-w-2xl">
+          {/* Close button */}
+          <button 
+            onClick={onClose}
+            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:text-gray-300 dark:hover:text-gray-100"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          
+          {/* Modal content */}
+          <div className="mt-2">
+            <div className="flex justify-between items-start mb-4">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{project.title}</h3>
+              <div className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-900/30">
+                <span className="font-semibold text-indigo-700 dark:text-indigo-300">{project.registrationCount}</span>
+                <span className="text-sm text-indigo-600 dark:text-indigo-400">
+                  {project.registrationCount === 1 ? "participant" : "participants"}
+                </span>
+              </div>
+            </div>
+            
+            <div className="mb-6">
+              <div className="flex items-center gap-2 mb-2 text-sm text-gray-500 dark:text-gray-400">
+                <span>Created by: {project.creator.name || project.creator.email}</span>
+                <span>•</span>
+                <span>Team size: {project.minTeamSize} - {project.maxTeamSize}</span>
+                <span>•</span>
+                <span>Environment: {project.environment}</span>
+              </div>
+              
+              <div className="mt-4 bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg">
+                <h4 className="text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">Description</h4>
+                <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{project.description}</p>
+                
+                {project.additionalRequests && (
+                  <div className="mt-4">
+                    <h4 className="text-sm font-semibold mb-1 text-gray-700 dark:text-gray-300">Additional Requirements</h4>
+                    <p className="text-gray-700 dark:text-gray-300">{project.additionalRequests}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+            
+            <div>
+              <h4 className="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-3">
+                Registered Users ({project.registeredUsers.length})
+              </h4>
+              
+              {project.registeredUsers.length === 0 ? (
+                <p className="text-gray-500 dark:text-gray-400 italic">No registrations yet</p>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  {project.registeredUsers.map(user => (
+                    <div 
+                      key={user.id} 
+                      className="flex items-center gap-2 bg-gray-100 dark:bg-gray-700 px-3 py-2 rounded-lg"
+                    >
+                      {user.image ? (
+                        <img
+                          src={user.image}
+                          alt={user.name || "User"}
+                          className="w-8 h-8 rounded-full"
+                        />
+                      ) : (
+                        <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center">
+                          <span className="text-xs text-white">
+                            {user.name?.charAt(0) || user.email.charAt(0)}
+                          </span>
+                        </div>
+                      )}
+                      <div>
+                        <span className="text-sm font-medium block">{user.name || "User"}</span>
+                        <span className="text-xs text-gray-500 dark:text-gray-400">{user.email}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const ProjectRegistrationChart: React.FC = () => {
   const [projects, setProjects] = useState<ProjectWithRegistrations[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedProject, setSelectedProject] = useState<ProjectWithRegistrations | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -95,6 +230,13 @@ const ProjectRegistrationChart: React.FC = () => {
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 dark:text-gray-100">
+      {/* Project details modal */}
+      <ProjectModal 
+        project={selectedProject}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
+      
       <h2 className="text-2xl font-bold mb-6">Project Registration Visualization</h2>
       
       {/* Summary statistics */}
@@ -128,7 +270,11 @@ const ProjectRegistrationChart: React.FC = () => {
               {projects.map(project => (
                 <div 
                   key={project.id} 
-                  className="flex items-center justify-between p-2 border border-gray-100 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-800/50"
+                  className="flex items-center justify-between p-2 border border-gray-100 dark:border-gray-600 rounded-lg bg-white/50 dark:bg-gray-800/50 cursor-pointer hover:shadow-md transition-shadow duration-200 hover:border-indigo-200 dark:hover:border-indigo-700"
+                  onClick={() => {
+                    setSelectedProject(project);
+                    setIsModalOpen(true);
+                  }}
                 >
                   {/* Left side: Project title */}
                   <div className="text-left">
@@ -184,7 +330,14 @@ const ProjectRegistrationChart: React.FC = () => {
           {/* Detailed project information */}
           <div className="space-y-6 mt-8">
             {projects.map(project => (
-              <div key={project.id} className="border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-lg p-6">
+              <div 
+                key={project.id} 
+                className="border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-lg p-6 cursor-pointer hover:border-indigo-300 dark:hover:border-indigo-600 transition-colors duration-200"
+                onClick={() => {
+                  setSelectedProject(project);
+                  setIsModalOpen(true);
+                }}
+              >
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
                   <div>
                     <h3 className="text-xl font-semibold dark:text-white">{project.title}</h3>
