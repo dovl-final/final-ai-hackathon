@@ -23,6 +23,18 @@ export interface ProjectWithCreator {
   creator: User;
 }
 
+export interface RegisteredUser {
+  id: string;
+  name: string | null;
+  email: string;
+  image: string | null;
+}
+
+export interface ProjectWithRegistrations extends ProjectWithCreator {
+  registrationCount: number;
+  registeredUsers: RegisteredUser[];
+}
+
 export interface SessionUser {
   id: string;
   name?: string | null;
